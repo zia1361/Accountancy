@@ -74,21 +74,37 @@ namespace gullycricket.Services
             }
         }
 
-        public void SignInUser(UserInfo oInfo)
+        public AuthenticationModel SignInUser(UserInfo oInfo)
         {
             try
             {
+                AuthenticationModel authenticationModel = new AuthenticationModel();
+                authenticationModel.Authenticated = false;
+                UserInfo oUser = new UserInfo();
                 using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
                 {
-                    var record = eDataBase.Users.Where(eUData => eUData.LoginId == oInfo.LoginId && eUData.Password == oInfo.Password).FirstOrDefault();
-                    if (record == null)
+                    var eUser = eDataBase.Users.Where(eUData => eUData.LoginId == oInfo.LoginId && eUData.Password == oInfo.Password).FirstOrDefault();
+                    if (eUser == null)
                     {
                         throw new Exception("Invalid Login ID or Password");
                     }
-                    if(record.IsVerified == false)
+                    if(eUser.IsVerified == false)
                     {
                         throw new Exception("Your account is not verified yet!");
                     }
+
+                    //code to be written to get data for loged in user
+
+                    authenticationModel.oUser = oUser;
+
+                    //assign user type
+                    //authenticationModel.AccountType = 
+
+                    authenticationModel.Authenticated = eUser != null;
+                    SessionService.Save(SessionService.Keys.AuthenticationInfo, authenticationModel);
+
+                    return authenticationModel;
+
                 }
 
             }
