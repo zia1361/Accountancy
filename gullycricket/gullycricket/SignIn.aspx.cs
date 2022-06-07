@@ -36,8 +36,13 @@ namespace gullycricket
                 UserInfo oInfo = new UserInfo();
                 oInfo.LoginId = userLoginId;
                 oInfo.Password = userPassword;
-                new UserManagment().SignInUser(oInfo);
-                MessageBox.SuccessMessage("Successfully LoggedIn");
+                var authenticationModel = new UserManagment().SignInUser(oInfo);
+                if (authenticationModel.Authenticated)
+                {
+                    //redirect to landing page
+                    Response.Redirect("Dashboard.aspx");
+                }
+                
             }
             catch (Exception ex)
             {
