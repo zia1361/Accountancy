@@ -1,9 +1,3 @@
-/**
-* Template Name: NiceAdmin - v2.2.2
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
 /*--------------------------------------------------------------
 # General
@@ -1074,4 +1068,20 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   font-size: 13px;
   color: #012970;
+}
+
+.profile-img{
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.profile-img-head {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.actionBtn{
+    margin-right: 2%;
 }

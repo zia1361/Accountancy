@@ -1,25 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="GullyCricket" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=HOME\SQLEXPRESS;Initial Catalog=GullyCricket;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GullyCricketConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="GullyCricketV2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=Pixcilelab;Initial Catalog=GullyCricketV2;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GullyCricketV2ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BowlStatus" Member="BowlStatus">
     <Type Name="BowlStatus">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="BowlStatusName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="BowlStatus_MatchOver" Member="MatchOvers" ThisKey="Id" OtherKey="BallStatus" Type="MatchOver" />
+      <Association Name="BowlStatus_MatchScore" Member="MatchScores" ThisKey="Id" OtherKey="BowlStatusId" Type="MatchScore" />
     </Type>
   </Table>
-  <Table Name="dbo.MatchOver" Member="MatchOvers">
-    <Type Name="MatchOver">
+  <Table Name="dbo.UserType" Member="UserTypes">
+    <Type Name="UserType">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MatchId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="BowlerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="BallStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="OverNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TeamId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="MatchOver_MatchScore" Member="MatchScores" ThisKey="Id" OtherKey="OverId" Type="MatchScore" />
-      <Association Name="BowlStatus_MatchOver" Member="BowlStatus" ThisKey="BallStatus" OtherKey="Id" Type="BowlStatus" IsForeignKey="true" />
-      <Association Name="Team_MatchOver" Member="Team" ThisKey="TeamId" OtherKey="Id" Type="Team" IsForeignKey="true" />
-      <Association Name="TournamentMatch_MatchOver" Member="TournamentMatch" ThisKey="MatchId" OtherKey="Id" Type="TournamentMatch" IsForeignKey="true" />
-      <Association Name="User_MatchOver" Member="User" ThisKey="BowlerId" OtherKey="Id" Type="User" IsForeignKey="true" />
+      <Column Name="UserTypeName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="UserType_User" Member="Users" ThisKey="Id" OtherKey="UserTypeId" Type="User" />
     </Type>
   </Table>
   <Table Name="dbo.MatchScore" Member="MatchScores">
@@ -27,12 +19,13 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="MatchId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BatsmanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="OverId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BowlerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BowlStatusId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TeamId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="MatchOver_MatchScore" Member="MatchOver" ThisKey="OverId" OtherKey="Id" Type="MatchOver" IsForeignKey="true" />
-      <Association Name="Team_MatchScore" Member="Team" ThisKey="TeamId" OtherKey="Id" Type="Team" IsForeignKey="true" />
+      <Association Name="BowlStatus_MatchScore" Member="BowlStatus" ThisKey="BowlStatusId" OtherKey="Id" Type="BowlStatus" IsForeignKey="true" />
       <Association Name="TournamentMatch_MatchScore" Member="TournamentMatch" ThisKey="MatchId" OtherKey="Id" Type="TournamentMatch" IsForeignKey="true" />
+      <Association Name="TournamentTeam_MatchScore" Member="TournamentTeam" ThisKey="TeamId" OtherKey="Id" Type="TournamentTeam" IsForeignKey="true" />
       <Association Name="User_MatchScore" Member="User" ThisKey="BatsmanId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -43,15 +36,21 @@
       <Association Name="MatchStatus_TournamentMatch" Member="TournamentMatches" ThisKey="Id" OtherKey="MatchStatusId" Type="TournamentMatch" />
     </Type>
   </Table>
+  <Table Name="dbo.PlayerType" Member="PlayerTypes">
+    <Type Name="PlayerType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlayerTypeName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="PlayerType_User" Member="Users" ThisKey="Id" OtherKey="PlayerTypeId" Type="User" />
+    </Type>
+  </Table>
   <Table Name="dbo.Team" Member="Teams">
     <Type Name="Team">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TeamName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="RegisteredOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Team_MatchOver" Member="MatchOvers" ThisKey="Id" OtherKey="TeamId" Type="MatchOver" />
-      <Association Name="Team_MatchScore" Member="MatchScores" ThisKey="Id" OtherKey="TeamId" Type="MatchScore" />
       <Association Name="Team_TeamPlayer" Member="TeamPlayers" ThisKey="Id" OtherKey="TeamId" Type="TeamPlayer" />
+      <Association Name="Team_Tournament" Member="Tournaments" ThisKey="Id" OtherKey="WinnerId" Type="Tournament" />
       <Association Name="Team_TournamentMatch" Member="TournamentMatches" ThisKey="Id" OtherKey="Team1Id" Type="TournamentMatch" />
       <Association Name="Team_TournamentMatch1" Member="TournamentMatches1" ThisKey="Id" OtherKey="Team2Id" Type="TournamentMatch" />
       <Association Name="Team_TournamentMatch2" Member="TournamentMatches2" ThisKey="Id" OtherKey="WinnerTeamId" Type="TournamentMatch" />
@@ -79,10 +78,11 @@
       <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TournamentName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="RegisteredOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="WinnerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WinnerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Tournament_TeamPlayer" Member="TeamPlayers" ThisKey="Id" OtherKey="TournamentId" Type="TeamPlayer" />
       <Association Name="Tournament_TournamentMatch" Member="TournamentMatches" ThisKey="Id" OtherKey="TournamentId" Type="TournamentMatch" />
       <Association Name="Tournament_TournamentTeam" Member="TournamentTeams" ThisKey="Id" OtherKey="TournamentId" Type="TournamentTeam" />
+      <Association Name="Team_Tournament" Member="Team" ThisKey="WinnerId" OtherKey="Id" Type="Team" IsForeignKey="true" />
       <Association Name="User_Tournament" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -94,10 +94,10 @@
       <Column Name="Team2Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MatchStatusId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="StartingDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="WinnerTeamId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TargetScore" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CurrentInningTeamId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="TournamentMatch_MatchOver" Member="MatchOvers" ThisKey="Id" OtherKey="MatchId" Type="MatchOver" />
+      <Column Name="TossWinningTeamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WinnerTeamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TargetScore" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CurrentInningTeamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="TournamentMatch_MatchScore" Member="MatchScores" ThisKey="Id" OtherKey="MatchId" Type="MatchScore" />
       <Association Name="MatchStatus_TournamentMatch" Member="MatchStatus" ThisKey="MatchStatusId" OtherKey="Id" Type="MatchStatus" IsForeignKey="true" />
       <Association Name="Team_TournamentMatch" Member="Team" ThisKey="Team1Id" OtherKey="Id" Type="Team" IsForeignKey="true" />
@@ -112,15 +112,9 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TournamentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TeamId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TournamentTeam_MatchScore" Member="MatchScores" ThisKey="Id" OtherKey="TeamId" Type="MatchScore" />
       <Association Name="Team_TournamentTeam" Member="Team" ThisKey="TeamId" OtherKey="Id" Type="Team" IsForeignKey="true" />
       <Association Name="Tournament_TournamentTeam" Member="Tournament" ThisKey="TournamentId" OtherKey="Id" Type="Tournament" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.UserType" Member="UserTypes">
-    <Type Name="UserType">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserTypeName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="UserType_User" Member="Users" ThisKey="Id" OtherKey="UserTypeId" Type="User" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -135,11 +129,12 @@
       <Column Name="RegisteredOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsVerified" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="PlayerId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="User_MatchOver" Member="MatchOvers" ThisKey="Id" OtherKey="BowlerId" Type="MatchOver" />
+      <Column Name="PlayerTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="User_MatchScore" Member="MatchScores" ThisKey="Id" OtherKey="BatsmanId" Type="MatchScore" />
       <Association Name="User_Team" Member="Teams" ThisKey="Id" OtherKey="UserId" Type="Team" />
       <Association Name="User_TeamPlayer" Member="TeamPlayers" ThisKey="Id" OtherKey="PlayerId" Type="TeamPlayer" />
       <Association Name="User_Tournament" Member="Tournaments" ThisKey="Id" OtherKey="UserId" Type="Tournament" />
+      <Association Name="PlayerType_User" Member="PlayerType" ThisKey="PlayerTypeId" OtherKey="Id" Type="PlayerType" IsForeignKey="true" />
       <Association Name="UserType_User" Member="UserType" ThisKey="UserTypeId" OtherKey="Id" Type="UserType" IsForeignKey="true" />
     </Type>
   </Table>

@@ -30,7 +30,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="assets/css/style.css">
 
-      <link href="assets/fontawesome-free-6.1.1-web/css/fontawesome.min.css" rel="stylesheet" />
+      <link href="assets/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
     <title>SignIn</title>
   </head>
@@ -76,8 +76,9 @@
 
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
+      <script src="assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
-      <script src="assets/fontawesome-free-6.1.1-web/js/fontawesome.min.js"></script>
+     
   </body>
 </html>

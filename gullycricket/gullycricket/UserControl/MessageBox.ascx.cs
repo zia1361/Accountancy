@@ -28,7 +28,7 @@ namespace gullycricket.UserControl
             try
             {
                 messageContainer.Visible = true;
-                messageIcon.InnerHtml = iconTemplate.Replace("[:IconClass]", "icon-check");
+                messageIcon.InnerHtml = iconTemplate.Replace("[:IconClass]", "bi bi-check2-circle");
                 messageText.Text = message;
                 messageContainer.Attributes["class"] = successMessage;
             }
@@ -43,7 +43,7 @@ namespace gullycricket.UserControl
             try
             {
                 messageContainer.Visible = true;
-                messageIcon.InnerHtml = iconTemplate.Replace("[:IconClass]", "icon-ban");
+                messageIcon.InnerHtml = iconTemplate.Replace("[:IconClass]", "bi bi-dash-circle-fill");
                 messageText.Text = message;
                 messageContainer.Attributes["class"] = errorMessage;
             }
