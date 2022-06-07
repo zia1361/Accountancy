@@ -33,16 +33,16 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Team</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-people-fill"></i><span>Team</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a href="CreateTeam.aspx">
               <i class="bi bi-circle"></i><span>Create</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="ViewAllTeams.aspx">
               <i class="bi bi-circle"></i><span>Manage</span>
             </a>
           </li>
@@ -52,7 +52,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Player</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-person-lines-fill"></i><span>Player</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>

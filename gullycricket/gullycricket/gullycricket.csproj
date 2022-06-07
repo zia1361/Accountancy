@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddTournamentTeam.aspx" />
     <Content Include="assets\assets\css\style.css" />
     <Content Include="assets\assets\img\apple-touch-icon.png" />
     <Content Include="assets\assets\img\card.jpg" />
@@ -2254,6 +2255,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CreateTeam.aspx" />
     <Content Include="CreateTournament.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="favicon.ico" />
@@ -2446,6 +2448,7 @@
     <Content Include="UserControl\Header.ascx" />
     <Content Include="UserControl\MessageBox.ascx" />
     <Content Include="UserControl\Sidebar.ascx" />
+    <Content Include="ViewAllTeams.aspx" />
     <Content Include="ViewAllTournaments.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -2453,10 +2456,24 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddTournamentTeam.aspx.cs">
+      <DependentUpon>AddTournamentTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddTournamentTeam.aspx.designer.cs">
+      <DependentUpon>AddTournamentTeam.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Backbone\Constants.cs" />
     <Compile Include="Backbone\SessionService.cs" />
+    <Compile Include="CreateTeam.aspx.cs">
+      <DependentUpon>CreateTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateTeam.aspx.designer.cs">
+      <DependentUpon>CreateTeam.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CreateTournament.aspx.cs">
       <DependentUpon>CreateTournament.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2493,6 +2510,7 @@
       <DependentUpon>Global.Master</DependentUpon>
     </Compile>
     <Compile Include="ModalClasses\AuthenticationModel.cs" />
+    <Compile Include="ModalClasses\TeamInfo.cs" />
     <Compile Include="ModalClasses\TournamentInfo.cs" />
     <Compile Include="ModalClasses\UserInfo.cs" />
     <Compile Include="Profile.aspx.cs">
@@ -2503,6 +2521,7 @@
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TeamManagement.cs" />
     <Compile Include="Services\TournamentManagement.cs" />
     <Compile Include="Services\UserManagment.cs" />
     <Compile Include="SignIn.aspx.cs">
@@ -2552,6 +2571,13 @@
     </Compile>
     <Compile Include="UserControl\Sidebar.ascx.designer.cs">
       <DependentUpon>Sidebar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAllTeams.aspx.cs">
+      <DependentUpon>ViewAllTeams.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAllTeams.aspx.designer.cs">
+      <DependentUpon>ViewAllTeams.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAllTournaments.aspx.cs">
       <DependentUpon>ViewAllTournaments.aspx</DependentUpon>

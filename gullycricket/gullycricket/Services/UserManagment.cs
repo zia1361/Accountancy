@@ -282,5 +282,25 @@ namespace gullycricket.Services
                 throw new Exception(ex.Message);
             }
         }
+        public void BindUsers(DropDownList gList)
+        {
+            try
+            {
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var eUsers = eDataBase.Users.Where(eUData => eUData.IsVerified == true).ToList();
+                    gList.DataSource = eUsers;
+                    gList.DataTextField = "Name";
+                    gList.DataValueField = "Id";
+                    gList.DataBind();
+                    gList.Items.Insert(0, new ListItem("Select User", "0"));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception( ex.Message);
+            }
+        }
     }
 }

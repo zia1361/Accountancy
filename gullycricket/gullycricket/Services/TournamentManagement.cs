@@ -95,5 +95,30 @@ namespace gullycricket.Services
                 throw new Exception(ex.Message);
             }
         }
+        public void AddTournamentTeam(int tournamentId, int teamId)
+        {
+            try
+            {
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var record = eDataBase.TournamentTeams.Where(eTData => eTData.TournamentId == tournamentId & eTData.TeamId == teamId).FirstOrDefault();
+                    if(record != null)
+                    {
+                        throw new Exception("This team is already added in this tournament");
+                    }
+                    TournamentTeam eTeam = new TournamentTeam();
+                    eTeam.TournamentId = tournamentId;
+                    eTeam.TeamId = teamId;
+                    eDataBase.TournamentTeams.InsertOnSubmit(eTeam);
+                    eDataBase.SubmitChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
