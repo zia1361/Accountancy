@@ -37,6 +37,7 @@ namespace gullycricket
                 oInfo.LoginId = userLoginId;
                 oInfo.Password = userPassword;
                 var authenticationModel = new UserManagment().SignInUser(oInfo);
+
                 if (authenticationModel.Authenticated)
                 {
                     //redirect to landing page

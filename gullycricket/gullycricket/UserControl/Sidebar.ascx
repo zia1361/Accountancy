@@ -18,12 +18,12 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="components-alerts.html">
+            <a href="CreateTournament.aspx">
               <i class="bi bi-circle"></i><span>Create</span>
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="ViewAllTournaments.aspx">
               <i class="bi bi-circle"></i><span>Manage</span>
             </a>
           </li>

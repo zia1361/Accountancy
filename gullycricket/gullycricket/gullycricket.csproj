@@ -2254,6 +2254,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CreateTournament.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2409,6 +2410,8 @@
     <Content Include="logout.aspx" />
     <Content Include="MasterPages\Global.Master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="pages-error-404.html" />
+    <Content Include="Profile.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -2443,6 +2446,7 @@
     <Content Include="UserControl\Header.ascx" />
     <Content Include="UserControl\MessageBox.ascx" />
     <Content Include="UserControl\Sidebar.ascx" />
+    <Content Include="ViewAllTournaments.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -2453,6 +2457,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Backbone\Constants.cs" />
     <Compile Include="Backbone\SessionService.cs" />
+    <Compile Include="CreateTournament.aspx.cs">
+      <DependentUpon>CreateTournament.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateTournament.aspx.designer.cs">
+      <DependentUpon>CreateTournament.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2482,8 +2493,17 @@
       <DependentUpon>Global.Master</DependentUpon>
     </Compile>
     <Compile Include="ModalClasses\AuthenticationModel.cs" />
+    <Compile Include="ModalClasses\TournamentInfo.cs" />
     <Compile Include="ModalClasses\UserInfo.cs" />
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TournamentManagement.cs" />
     <Compile Include="Services\UserManagment.cs" />
     <Compile Include="SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
@@ -2533,6 +2553,13 @@
     <Compile Include="UserControl\Sidebar.ascx.designer.cs">
       <DependentUpon>Sidebar.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewAllTournaments.aspx.cs">
+      <DependentUpon>ViewAllTournaments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAllTournaments.aspx.designer.cs">
+      <DependentUpon>ViewAllTournaments.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2543,6 +2570,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PROFILEIMAGES\" />
     <Folder Include="Utilis\" />
   </ItemGroup>
   <ItemGroup>

@@ -23,11 +23,8 @@ namespace gullycricket.Model_Classes
         [Serializable]
         public enum UserType
         {
-            Admin = 1,
-            Individual = 2,
-            Agent = 3,
-            Company = 4,
-            IndividualAndAgent = 5
+            Player = 1,
+            Organizer = 2
         }
 
        
