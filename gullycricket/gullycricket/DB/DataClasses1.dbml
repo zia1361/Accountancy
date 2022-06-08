@@ -55,6 +55,7 @@
       <Association Name="Team_TournamentMatch1" Member="TournamentMatches1" ThisKey="Id" OtherKey="Team2Id" Type="TournamentMatch" />
       <Association Name="Team_TournamentMatch2" Member="TournamentMatches2" ThisKey="Id" OtherKey="WinnerTeamId" Type="TournamentMatch" />
       <Association Name="Team_TournamentMatch3" Member="TournamentMatches3" ThisKey="Id" OtherKey="CurrentInningTeamId" Type="TournamentMatch" />
+      <Association Name="Team_TournamentMatch4" Member="TournamentMatches4" ThisKey="Id" OtherKey="TossWinningTeamId" Type="TournamentMatch" />
       <Association Name="Team_TournamentTeam" Member="TournamentTeams" ThisKey="Id" OtherKey="TeamId" Type="TournamentTeam" />
       <Association Name="User_Team" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
@@ -62,13 +63,11 @@
   <Table Name="dbo.TeamPlayers" Member="TeamPlayers">
     <Type Name="TeamPlayer">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TournamentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TeamId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PlayerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="AddedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsPlaying" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Team_TeamPlayer" Member="Team" ThisKey="TeamId" OtherKey="Id" Type="Team" IsForeignKey="true" />
-      <Association Name="Tournament_TeamPlayer" Member="Tournament" ThisKey="TournamentId" OtherKey="Id" Type="Tournament" IsForeignKey="true" />
       <Association Name="User_TeamPlayer" Member="User" ThisKey="PlayerId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -79,7 +78,6 @@
       <Column Name="TournamentName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="RegisteredOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="WinnerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Tournament_TeamPlayer" Member="TeamPlayers" ThisKey="Id" OtherKey="TournamentId" Type="TeamPlayer" />
       <Association Name="Tournament_TournamentMatch" Member="TournamentMatches" ThisKey="Id" OtherKey="TournamentId" Type="TournamentMatch" />
       <Association Name="Tournament_TournamentTeam" Member="TournamentTeams" ThisKey="Id" OtherKey="TournamentId" Type="TournamentTeam" />
       <Association Name="Team_Tournament" Member="Team" ThisKey="WinnerId" OtherKey="Id" Type="Team" IsForeignKey="true" />
@@ -104,6 +102,7 @@
       <Association Name="Team_TournamentMatch1" Member="Team1" ThisKey="Team2Id" OtherKey="Id" Type="Team" IsForeignKey="true" />
       <Association Name="Team_TournamentMatch2" Member="Team2" ThisKey="WinnerTeamId" OtherKey="Id" Type="Team" IsForeignKey="true" />
       <Association Name="Team_TournamentMatch3" Member="Team3" ThisKey="CurrentInningTeamId" OtherKey="Id" Type="Team" IsForeignKey="true" />
+      <Association Name="Team_TournamentMatch4" Member="Team4" ThisKey="TossWinningTeamId" OtherKey="Id" Type="Team" IsForeignKey="true" />
       <Association Name="Tournament_TournamentMatch" Member="Tournament" ThisKey="TournamentId" OtherKey="Id" Type="Tournament" IsForeignKey="true" />
     </Type>
   </Table>

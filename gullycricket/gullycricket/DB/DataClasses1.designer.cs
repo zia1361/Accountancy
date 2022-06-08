@@ -1036,6 +1036,8 @@ namespace gullycricket.DB
 		
 		private EntitySet<TournamentMatch> _TournamentMatches3;
 		
+		private EntitySet<TournamentMatch> _TournamentMatches4;
+		
 		private EntitySet<TournamentTeam> _TournamentTeams;
 		
 		private EntityRef<User> _User;
@@ -1062,6 +1064,7 @@ namespace gullycricket.DB
 			this._TournamentMatches1 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches1), new Action<TournamentMatch>(this.detach_TournamentMatches1));
 			this._TournamentMatches2 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches2), new Action<TournamentMatch>(this.detach_TournamentMatches2));
 			this._TournamentMatches3 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches3), new Action<TournamentMatch>(this.detach_TournamentMatches3));
+			this._TournamentMatches4 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches4), new Action<TournamentMatch>(this.detach_TournamentMatches4));
 			this._TournamentTeams = new EntitySet<TournamentTeam>(new Action<TournamentTeam>(this.attach_TournamentTeams), new Action<TournamentTeam>(this.detach_TournamentTeams));
 			this._User = default(EntityRef<User>);
 			OnCreated();
@@ -1229,6 +1232,19 @@ namespace gullycricket.DB
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch4", Storage="_TournamentMatches4", ThisKey="Id", OtherKey="TossWinningTeamId")]
+		public EntitySet<TournamentMatch> TournamentMatches4
+		{
+			get
+			{
+				return this._TournamentMatches4;
+			}
+			set
+			{
+				this._TournamentMatches4.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentTeam", Storage="_TournamentTeams", ThisKey="Id", OtherKey="TeamId")]
 		public EntitySet<TournamentTeam> TournamentTeams
 		{
@@ -1368,6 +1384,18 @@ namespace gullycricket.DB
 			entity.Team3 = null;
 		}
 		
+		private void attach_TournamentMatches4(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team4 = this;
+		}
+		
+		private void detach_TournamentMatches4(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team4 = null;
+		}
+		
 		private void attach_TournamentTeams(TournamentTeam entity)
 		{
 			this.SendPropertyChanging();
@@ -1389,8 +1417,6 @@ namespace gullycricket.DB
 		
 		private int _Id;
 		
-		private int _TournamentId;
-		
 		private int _TeamId;
 		
 		private int _PlayerId;
@@ -1401,8 +1427,6 @@ namespace gullycricket.DB
 		
 		private EntityRef<Team> _Team;
 		
-		private EntityRef<Tournament> _Tournament;
-		
 		private EntityRef<User> _User;
 		
     #region Extensibility Method Definitions
@@ -1411,8 +1435,6 @@ namespace gullycricket.DB
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnTournamentIdChanging(int value);
-    partial void OnTournamentIdChanged();
     partial void OnTeamIdChanging(int value);
     partial void OnTeamIdChanged();
     partial void OnPlayerIdChanging(int value);
@@ -1426,7 +1448,6 @@ namespace gullycricket.DB
 		public TeamPlayer()
 		{
 			this._Team = default(EntityRef<Team>);
-			this._Tournament = default(EntityRef<Tournament>);
 			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
@@ -1447,30 +1468,6 @@ namespace gullycricket.DB
 					this._Id = value;
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TournamentId", DbType="Int NOT NULL")]
-		public int TournamentId
-		{
-			get
-			{
-				return this._TournamentId;
-			}
-			set
-			{
-				if ((this._TournamentId != value))
-				{
-					if (this._Tournament.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTournamentIdChanging(value);
-					this.SendPropertyChanging();
-					this._TournamentId = value;
-					this.SendPropertyChanged("TournamentId");
-					this.OnTournamentIdChanged();
 				}
 			}
 		}
@@ -1597,40 +1594,6 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TeamPlayer", Storage="_Tournament", ThisKey="TournamentId", OtherKey="Id", IsForeignKey=true)]
-		public Tournament Tournament
-		{
-			get
-			{
-				return this._Tournament.Entity;
-			}
-			set
-			{
-				Tournament previousValue = this._Tournament.Entity;
-				if (((previousValue != value) 
-							|| (this._Tournament.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tournament.Entity = null;
-						previousValue.TeamPlayers.Remove(this);
-					}
-					this._Tournament.Entity = value;
-					if ((value != null))
-					{
-						value.TeamPlayers.Add(this);
-						this._TournamentId = value.Id;
-					}
-					else
-					{
-						this._TournamentId = default(int);
-					}
-					this.SendPropertyChanged("Tournament");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_TeamPlayer", Storage="_User", ThisKey="PlayerId", OtherKey="Id", IsForeignKey=true)]
 		public User User
 		{
@@ -1702,8 +1665,6 @@ namespace gullycricket.DB
 		
 		private System.Nullable<int> _WinnerId;
 		
-		private EntitySet<TeamPlayer> _TeamPlayers;
-		
 		private EntitySet<TournamentMatch> _TournamentMatches;
 		
 		private EntitySet<TournamentTeam> _TournamentTeams;
@@ -1730,7 +1691,6 @@ namespace gullycricket.DB
 		
 		public Tournament()
 		{
-			this._TeamPlayers = new EntitySet<TeamPlayer>(new Action<TeamPlayer>(this.attach_TeamPlayers), new Action<TeamPlayer>(this.detach_TeamPlayers));
 			this._TournamentMatches = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches), new Action<TournamentMatch>(this.detach_TournamentMatches));
 			this._TournamentTeams = new EntitySet<TournamentTeam>(new Action<TournamentTeam>(this.attach_TournamentTeams), new Action<TournamentTeam>(this.detach_TournamentTeams));
 			this._Team = default(EntityRef<Team>);
@@ -1843,19 +1803,6 @@ namespace gullycricket.DB
 					this.SendPropertyChanged("WinnerId");
 					this.OnWinnerIdChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TeamPlayer", Storage="_TeamPlayers", ThisKey="Id", OtherKey="TournamentId")]
-		public EntitySet<TeamPlayer> TeamPlayers
-		{
-			get
-			{
-				return this._TeamPlayers;
-			}
-			set
-			{
-				this._TeamPlayers.Assign(value);
 			}
 		}
 		
@@ -1973,18 +1920,6 @@ namespace gullycricket.DB
 			}
 		}
 		
-		private void attach_TeamPlayers(TeamPlayer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tournament = this;
-		}
-		
-		private void detach_TeamPlayers(TeamPlayer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tournament = null;
-		}
-		
 		private void attach_TournamentMatches(TournamentMatch entity)
 		{
 			this.SendPropertyChanging();
@@ -2048,6 +1983,8 @@ namespace gullycricket.DB
 		
 		private EntityRef<Team> _Team3;
 		
+		private EntityRef<Team> _Team4;
+		
 		private EntityRef<Tournament> _Tournament;
 		
     #region Extensibility Method Definitions
@@ -2084,6 +2021,7 @@ namespace gullycricket.DB
 			this._Team1 = default(EntityRef<Team>);
 			this._Team2 = default(EntityRef<Team>);
 			this._Team3 = default(EntityRef<Team>);
+			this._Team4 = default(EntityRef<Team>);
 			this._Tournament = default(EntityRef<Tournament>);
 			OnCreated();
 		}
@@ -2235,6 +2173,10 @@ namespace gullycricket.DB
 			{
 				if ((this._TossWinningTeamId != value))
 				{
+					if (this._Team4.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnTossWinningTeamIdChanging(value);
 					this.SendPropertyChanging();
 					this._TossWinningTeamId = value;
@@ -2491,6 +2433,40 @@ namespace gullycricket.DB
 						this._CurrentInningTeamId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Team3");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch4", Storage="_Team4", ThisKey="TossWinningTeamId", OtherKey="Id", IsForeignKey=true)]
+		public Team Team4
+		{
+			get
+			{
+				return this._Team4.Entity;
+			}
+			set
+			{
+				Team previousValue = this._Team4.Entity;
+				if (((previousValue != value) 
+							|| (this._Team4.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Team4.Entity = null;
+						previousValue.TournamentMatches4.Remove(this);
+					}
+					this._Team4.Entity = value;
+					if ((value != null))
+					{
+						value.TournamentMatches4.Add(this);
+						this._TossWinningTeamId = value.Id;
+					}
+					else
+					{
+						this._TossWinningTeamId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Team4");
 				}
 			}
 		}

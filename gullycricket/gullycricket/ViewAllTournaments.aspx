@@ -46,6 +46,7 @@
                                      <asp:LinkButton ID="btnDelete" runat="server" OnClientClick="if (!confirm('Are you sure you want delete?')) return false;" OnClick="btnDelete_Click" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-danger actionBtn btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" ><i class="bi bi-trash"></i></asp:LinkButton>
                                      <a href='AddTournamentTeam.aspx?tId=<%# Eval("Id") %>'  class="btn btn-info actionBtn btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Register Team"><i class="bi bi-plus"></i></a>
                                      <a href='ViewTournamentTeams.aspx?tId=<%# Eval("Id") %>'  class="btn btn-secondary actionBtn btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View Teams"><i class="bi bi-eye"></i></a>
+                                     <a href='TournamentMatches.aspx?tId=<%# Eval("Id") %>'  class="btn btn-primary actionBtn btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Manage Matches"><i class="bi bi-diagram-2-fill"></i></a>
                                  </td>
                   </tr>
                         </ItemTemplate>

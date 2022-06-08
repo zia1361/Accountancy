@@ -113,5 +113,34 @@ namespace gullycricket.Services
                 throw new Exception(ex.Message);
             }
         }
+        public void BindTeamsByTournamentId(DropDownList gList, int tournamentId)
+        {
+            try
+            {
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var record = eDataBase.TournamentTeams.Where(eTData => eTData.TournamentId == tournamentId).ToList();
+                    var eTeams = new List<Team>();
+                    foreach (var eTeam in record)
+                    {
+                        eTeams.Add(new Team()
+                        {
+                            Id = eTeam.Team.Id,
+                            TeamName = eTeam.Team.TeamName
+                        });
+                    }
+                    gList.DataSource = eTeams;
+                    gList.DataTextField = "TeamName";
+                    gList.DataValueField = "Id";
+                    gList.DataBind();
+                    gList.Items.Insert(0, new ListItem("Select Team", "0"));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

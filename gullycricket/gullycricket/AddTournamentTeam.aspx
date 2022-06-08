@@ -24,7 +24,7 @@
               <div class="row g-3">
                 <div class="col-6">
                     <div class="form-group">
-                         <label for="UserList" class="form-label">Select Team</label>
+                         <label for="TeamList" class="form-label">Select Team</label>
                           <asp:DropDownList ClientIDMode="Static" ID="TeamList" class="form-control" runat="server"></asp:DropDownList>
                         
                     </div>
