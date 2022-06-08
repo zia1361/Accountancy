@@ -51,25 +51,31 @@
       </li><!-- End Team Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person-lines-fill"></i><span>Player</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link"  href="javascript:void(0)">
+          <i class="bi bi-card-text"></i><span>My Activity</span>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>Add new Player</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Manage</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Player Nav -->
+        
+      </li><!-- End Activity Nav -->
 
      
-
+         <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#match-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-diagram-3-fill"></i><span>Match</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="match-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="bi bi-circle"></i><span>View</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="bi bi-circle"></i><span>Score Book</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Match Nav -->
      
 
     </ul>

@@ -11,7 +11,7 @@ namespace gullycricket
 {
 
 
-    public partial class AddTournamentTeam
+    public partial class TournamentMatches
     {
 
         /// <summary>
@@ -33,6 +33,24 @@ namespace gullycricket
         protected global::System.Web.UI.WebControls.DropDownList TeamList;
 
         /// <summary>
+        /// TeamList2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList TeamList2;
+
+        /// <summary>
+        /// startDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl startDate;
+
+        /// <summary>
         /// btnSubmit control.
         /// </summary>
         /// <remarks>
@@ -42,12 +60,12 @@ namespace gullycricket
         protected global::System.Web.UI.WebControls.Button btnSubmit;
 
         /// <summary>
-        /// TeamRepeater control.
+        /// MatchRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater TeamRepeater;
+        protected global::System.Web.UI.WebControls.Repeater MatchRepeater;
     }
 }

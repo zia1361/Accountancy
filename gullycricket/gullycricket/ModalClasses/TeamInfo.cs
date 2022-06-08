@@ -13,6 +13,10 @@ namespace gullycricket.ModalClasses
         public DateTime RegisteredOn { get; set; }
         public string RegisteredOnString { get; set; }
         public int NumberOfPlayers { get; set; }
-       
+        public int NumberOfTournaments { get; set; }
+        public int NumberOfMatchesPlayed { get; set; }
+        public int NumberOfMatchesWon { get; set; }
+        public int NumberOfMatchesLost { get; set; }
+
     }
 }

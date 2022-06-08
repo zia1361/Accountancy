@@ -2445,12 +2445,14 @@
     <Content Include="SignIn.aspx" />
     <Content Include="SignUp.aspx" />
     <Content Include="Site.Master" />
+    <Content Include="TournamentMatches.aspx" />
     <Content Include="UserControl\Header.ascx" />
     <Content Include="UserControl\MessageBox.ascx" />
     <Content Include="UserControl\Sidebar.ascx" />
     <Content Include="ViewAllTeams.aspx" />
     <Content Include="ViewAllTournaments.aspx" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="ViewTournamentTeams.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -2505,11 +2507,13 @@
     </Compile>
     <Compile Include="MasterPages\Global.Master.cs">
       <DependentUpon>Global.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MasterPages\Global.Master.designer.cs">
       <DependentUpon>Global.Master</DependentUpon>
     </Compile>
     <Compile Include="ModalClasses\AuthenticationModel.cs" />
+    <Compile Include="ModalClasses\MatchInfo.cs" />
     <Compile Include="ModalClasses\TeamInfo.cs" />
     <Compile Include="ModalClasses\TournamentInfo.cs" />
     <Compile Include="ModalClasses\UserInfo.cs" />
@@ -2521,6 +2525,7 @@
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\MatchManagement.cs" />
     <Compile Include="Services\TeamManagement.cs" />
     <Compile Include="Services\TournamentManagement.cs" />
     <Compile Include="Services\UserManagment.cs" />
@@ -2552,8 +2557,16 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="TournamentMatches.aspx.cs">
+      <DependentUpon>TournamentMatches.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TournamentMatches.aspx.designer.cs">
+      <DependentUpon>TournamentMatches.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\Header.ascx.cs">
       <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControl\Header.ascx.designer.cs">
       <DependentUpon>Header.ascx</DependentUpon>
@@ -2592,6 +2605,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTournamentTeams.aspx.cs">
+      <DependentUpon>ViewTournamentTeams.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewTournamentTeams.aspx.designer.cs">
+      <DependentUpon>ViewTournamentTeams.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

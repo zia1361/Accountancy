@@ -54,6 +54,8 @@ namespace gullycricket.Services
                         oTournament.RegisteredOnString = oTournament.RegisteredOn.ToString(ConfigurationManager.AppSettings["DateFormat"]);
                         oTournament.UserId = eTournament.UserId;
                         oTournament.NumberOfTeams = eTournament.TournamentTeams.Count;
+                        oTournament.NumberOfMatches = eTournament.TournamentMatches.Count;
+
                         if (eTournament.WinnerId.HasValue)
                         {
                             oTournament.WinnerId = eTournament.WinnerId.Value;
@@ -119,6 +121,56 @@ namespace gullycricket.Services
                 throw new Exception(ex.Message);
             }
         }
+        public List<TeamInfo> GetTeamsByTournamentId(int tournamanetId)
+        {
+            try
+            {
+                List<TeamInfo> oTeams = new List<TeamInfo>();
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var eTeams = eDataBase.TournamentTeams.Where(eTData => eTData.TournamentId == tournamanetId).ToList();
+                    foreach (var eTeam in eTeams)
+                    {
+                        TeamInfo oTeam = new TeamInfo();
+                        oTeam.Id = eTeam.Id;
+                        oTeam.TeamName = eTeam.Team.TeamName;
+                        oTeam.NumberOfPlayers = eTeam.Team.TeamPlayers.Count;
+                        var eMatches = eTeam.Tournament.TournamentMatches.Where(eMData => eMData.Team1Id == eTeam.Id || eMData.Team2Id == eTeam.Id).ToList();
+                        oTeam.NumberOfMatchesPlayed = eMatches.Count;
+                        oTeam.NumberOfMatchesWon = eMatches.Where(eMData => eMData.WinnerTeamId == eTeam.Id).Count();
+                        oTeam.NumberOfMatchesLost = oTeam.NumberOfMatchesPlayed - oTeam.NumberOfMatchesWon;
+                        oTeam.NumberOfTournaments = eTeam.Team.Tournaments.Count;
+                        oTeams.Add(oTeam);
+                    }
+                }
+                return oTeams;
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception(ex.Message);
+            }
+        }
+        public void DeleteTournamentTeam(int teamId)
+        {
+            try
+            {
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var eTeam = eDataBase.TournamentTeams.Where(eTData => eTData.Id == teamId).FirstOrDefault();
+                    if(eTeam == null)
+                    {
+                        throw new Exception("No record found");
+                    }
+                    eDataBase.TournamentTeams.DeleteOnSubmit(eTeam);
+                    eDataBase.SubmitChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -36,9 +36,6 @@ namespace gullycricket.DB
     partial void InsertUserType(UserType instance);
     partial void UpdateUserType(UserType instance);
     partial void DeleteUserType(UserType instance);
-    partial void InsertMatchOver(MatchOver instance);
-    partial void UpdateMatchOver(MatchOver instance);
-    partial void DeleteMatchOver(MatchOver instance);
     partial void InsertMatchScore(MatchScore instance);
     partial void UpdateMatchScore(MatchScore instance);
     partial void DeleteMatchScore(MatchScore instance);
@@ -48,9 +45,15 @@ namespace gullycricket.DB
     partial void InsertPlayerType(PlayerType instance);
     partial void UpdatePlayerType(PlayerType instance);
     partial void DeletePlayerType(PlayerType instance);
+    partial void InsertTeam(Team instance);
+    partial void UpdateTeam(Team instance);
+    partial void DeleteTeam(Team instance);
     partial void InsertTeamPlayer(TeamPlayer instance);
     partial void UpdateTeamPlayer(TeamPlayer instance);
     partial void DeleteTeamPlayer(TeamPlayer instance);
+    partial void InsertTournament(Tournament instance);
+    partial void UpdateTournament(Tournament instance);
+    partial void DeleteTournament(Tournament instance);
     partial void InsertTournamentMatch(TournamentMatch instance);
     partial void UpdateTournamentMatch(TournamentMatch instance);
     partial void DeleteTournamentMatch(TournamentMatch instance);
@@ -60,12 +63,6 @@ namespace gullycricket.DB
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
-    partial void InsertTournament(Tournament instance);
-    partial void UpdateTournament(Tournament instance);
-    partial void DeleteTournament(Tournament instance);
-    partial void InsertTeam(Team instance);
-    partial void UpdateTeam(Team instance);
-    partial void DeleteTeam(Team instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -114,14 +111,6 @@ namespace gullycricket.DB
 			}
 		}
 		
-		public System.Data.Linq.Table<MatchOver> MatchOvers
-		{
-			get
-			{
-				return this.GetTable<MatchOver>();
-			}
-		}
-		
 		public System.Data.Linq.Table<MatchScore> MatchScores
 		{
 			get
@@ -146,11 +135,27 @@ namespace gullycricket.DB
 			}
 		}
 		
+		public System.Data.Linq.Table<Team> Teams
+		{
+			get
+			{
+				return this.GetTable<Team>();
+			}
+		}
+		
 		public System.Data.Linq.Table<TeamPlayer> TeamPlayers
 		{
 			get
 			{
 				return this.GetTable<TeamPlayer>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Tournament> Tournaments
+		{
+			get
+			{
+				return this.GetTable<Tournament>();
 			}
 		}
 		
@@ -177,22 +182,6 @@ namespace gullycricket.DB
 				return this.GetTable<User>();
 			}
 		}
-		
-		public System.Data.Linq.Table<Tournament> Tournaments
-		{
-			get
-			{
-				return this.GetTable<Tournament>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Team> Teams
-		{
-			get
-			{
-				return this.GetTable<Team>();
-			}
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BowlStatus")]
@@ -205,7 +194,7 @@ namespace gullycricket.DB
 		
 		private string _BowlStatusName;
 		
-		private EntitySet<MatchOver> _MatchOvers;
+		private EntitySet<MatchScore> _MatchScores;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -219,7 +208,7 @@ namespace gullycricket.DB
 		
 		public BowlStatus()
 		{
-			this._MatchOvers = new EntitySet<MatchOver>(new Action<MatchOver>(this.attach_MatchOvers), new Action<MatchOver>(this.detach_MatchOvers));
+			this._MatchScores = new EntitySet<MatchScore>(new Action<MatchScore>(this.attach_MatchScores), new Action<MatchScore>(this.detach_MatchScores));
 			OnCreated();
 		}
 		
@@ -263,16 +252,16 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BowlStatus_MatchOver", Storage="_MatchOvers", ThisKey="Id", OtherKey="BallStatus")]
-		public EntitySet<MatchOver> MatchOvers
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BowlStatus_MatchScore", Storage="_MatchScores", ThisKey="Id", OtherKey="BowlStatusId")]
+		public EntitySet<MatchScore> MatchScores
 		{
 			get
 			{
-				return this._MatchOvers;
+				return this._MatchScores;
 			}
 			set
 			{
-				this._MatchOvers.Assign(value);
+				this._MatchScores.Assign(value);
 			}
 		}
 		
@@ -296,13 +285,13 @@ namespace gullycricket.DB
 			}
 		}
 		
-		private void attach_MatchOvers(MatchOver entity)
+		private void attach_MatchScores(MatchScore entity)
 		{
 			this.SendPropertyChanging();
 			entity.BowlStatus = this;
 		}
 		
-		private void detach_MatchOvers(MatchOver entity)
+		private void detach_MatchScores(MatchScore entity)
 		{
 			this.SendPropertyChanging();
 			entity.BowlStatus = null;
@@ -423,380 +412,6 @@ namespace gullycricket.DB
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MatchOver")]
-	public partial class MatchOver : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _MatchId;
-		
-		private int _BowlerId;
-		
-		private int _BallStatus;
-		
-		private int _OverNumber;
-		
-		private int _TeamId;
-		
-		private EntitySet<MatchScore> _MatchScores;
-		
-		private EntityRef<BowlStatus> _BowlStatus;
-		
-		private EntityRef<TournamentMatch> _TournamentMatch;
-		
-		private EntityRef<User> _User;
-		
-		private EntityRef<Team> _Team;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnMatchIdChanging(int value);
-    partial void OnMatchIdChanged();
-    partial void OnBowlerIdChanging(int value);
-    partial void OnBowlerIdChanged();
-    partial void OnBallStatusChanging(int value);
-    partial void OnBallStatusChanged();
-    partial void OnOverNumberChanging(int value);
-    partial void OnOverNumberChanged();
-    partial void OnTeamIdChanging(int value);
-    partial void OnTeamIdChanged();
-    #endregion
-		
-		public MatchOver()
-		{
-			this._MatchScores = new EntitySet<MatchScore>(new Action<MatchScore>(this.attach_MatchScores), new Action<MatchScore>(this.detach_MatchScores));
-			this._BowlStatus = default(EntityRef<BowlStatus>);
-			this._TournamentMatch = default(EntityRef<TournamentMatch>);
-			this._User = default(EntityRef<User>);
-			this._Team = default(EntityRef<Team>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MatchId", DbType="Int NOT NULL")]
-		public int MatchId
-		{
-			get
-			{
-				return this._MatchId;
-			}
-			set
-			{
-				if ((this._MatchId != value))
-				{
-					if (this._TournamentMatch.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMatchIdChanging(value);
-					this.SendPropertyChanging();
-					this._MatchId = value;
-					this.SendPropertyChanged("MatchId");
-					this.OnMatchIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BowlerId", DbType="Int NOT NULL")]
-		public int BowlerId
-		{
-			get
-			{
-				return this._BowlerId;
-			}
-			set
-			{
-				if ((this._BowlerId != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnBowlerIdChanging(value);
-					this.SendPropertyChanging();
-					this._BowlerId = value;
-					this.SendPropertyChanged("BowlerId");
-					this.OnBowlerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BallStatus", DbType="Int NOT NULL")]
-		public int BallStatus
-		{
-			get
-			{
-				return this._BallStatus;
-			}
-			set
-			{
-				if ((this._BallStatus != value))
-				{
-					if (this._BowlStatus.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnBallStatusChanging(value);
-					this.SendPropertyChanging();
-					this._BallStatus = value;
-					this.SendPropertyChanged("BallStatus");
-					this.OnBallStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OverNumber", DbType="Int NOT NULL")]
-		public int OverNumber
-		{
-			get
-			{
-				return this._OverNumber;
-			}
-			set
-			{
-				if ((this._OverNumber != value))
-				{
-					this.OnOverNumberChanging(value);
-					this.SendPropertyChanging();
-					this._OverNumber = value;
-					this.SendPropertyChanged("OverNumber");
-					this.OnOverNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamId", DbType="Int NOT NULL")]
-		public int TeamId
-		{
-			get
-			{
-				return this._TeamId;
-			}
-			set
-			{
-				if ((this._TeamId != value))
-				{
-					if (this._Team.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTeamIdChanging(value);
-					this.SendPropertyChanging();
-					this._TeamId = value;
-					this.SendPropertyChanged("TeamId");
-					this.OnTeamIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MatchOver_MatchScore", Storage="_MatchScores", ThisKey="Id", OtherKey="OverId")]
-		public EntitySet<MatchScore> MatchScores
-		{
-			get
-			{
-				return this._MatchScores;
-			}
-			set
-			{
-				this._MatchScores.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BowlStatus_MatchOver", Storage="_BowlStatus", ThisKey="BallStatus", OtherKey="Id", IsForeignKey=true)]
-		public BowlStatus BowlStatus
-		{
-			get
-			{
-				return this._BowlStatus.Entity;
-			}
-			set
-			{
-				BowlStatus previousValue = this._BowlStatus.Entity;
-				if (((previousValue != value) 
-							|| (this._BowlStatus.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BowlStatus.Entity = null;
-						previousValue.MatchOvers.Remove(this);
-					}
-					this._BowlStatus.Entity = value;
-					if ((value != null))
-					{
-						value.MatchOvers.Add(this);
-						this._BallStatus = value.Id;
-					}
-					else
-					{
-						this._BallStatus = default(int);
-					}
-					this.SendPropertyChanged("BowlStatus");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TournamentMatch_MatchOver", Storage="_TournamentMatch", ThisKey="MatchId", OtherKey="Id", IsForeignKey=true)]
-		public TournamentMatch TournamentMatch
-		{
-			get
-			{
-				return this._TournamentMatch.Entity;
-			}
-			set
-			{
-				TournamentMatch previousValue = this._TournamentMatch.Entity;
-				if (((previousValue != value) 
-							|| (this._TournamentMatch.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._TournamentMatch.Entity = null;
-						previousValue.MatchOvers.Remove(this);
-					}
-					this._TournamentMatch.Entity = value;
-					if ((value != null))
-					{
-						value.MatchOvers.Add(this);
-						this._MatchId = value.Id;
-					}
-					else
-					{
-						this._MatchId = default(int);
-					}
-					this.SendPropertyChanged("TournamentMatch");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MatchOver", Storage="_User", ThisKey="BowlerId", OtherKey="Id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.MatchOvers.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.MatchOvers.Add(this);
-						this._BowlerId = value.Id;
-					}
-					else
-					{
-						this._BowlerId = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_MatchOver", Storage="_Team", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
-		public Team Team
-		{
-			get
-			{
-				return this._Team.Entity;
-			}
-			set
-			{
-				Team previousValue = this._Team.Entity;
-				if (((previousValue != value) 
-							|| (this._Team.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Team.Entity = null;
-						previousValue.MatchOvers.Remove(this);
-					}
-					this._Team.Entity = value;
-					if ((value != null))
-					{
-						value.MatchOvers.Add(this);
-						this._TeamId = value.Id;
-					}
-					else
-					{
-						this._TeamId = default(int);
-					}
-					this.SendPropertyChanged("Team");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_MatchScores(MatchScore entity)
-		{
-			this.SendPropertyChanging();
-			entity.MatchOver = this;
-		}
-		
-		private void detach_MatchScores(MatchScore entity)
-		{
-			this.SendPropertyChanging();
-			entity.MatchOver = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MatchScore")]
 	public partial class MatchScore : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -809,19 +424,21 @@ namespace gullycricket.DB
 		
 		private int _BatsmanId;
 		
-		private int _OverId;
+		private int _BowlerId;
+		
+		private int _BowlStatusId;
 		
 		private int _Score;
 		
 		private int _TeamId;
 		
-		private EntityRef<MatchOver> _MatchOver;
+		private EntityRef<BowlStatus> _BowlStatus;
 		
 		private EntityRef<TournamentMatch> _TournamentMatch;
 		
-		private EntityRef<User> _User;
+		private EntityRef<TournamentTeam> _TournamentTeam;
 		
-		private EntityRef<Team> _Team;
+		private EntityRef<User> _User;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -833,8 +450,10 @@ namespace gullycricket.DB
     partial void OnMatchIdChanged();
     partial void OnBatsmanIdChanging(int value);
     partial void OnBatsmanIdChanged();
-    partial void OnOverIdChanging(int value);
-    partial void OnOverIdChanged();
+    partial void OnBowlerIdChanging(int value);
+    partial void OnBowlerIdChanged();
+    partial void OnBowlStatusIdChanging(int value);
+    partial void OnBowlStatusIdChanged();
     partial void OnScoreChanging(int value);
     partial void OnScoreChanged();
     partial void OnTeamIdChanging(int value);
@@ -843,10 +462,10 @@ namespace gullycricket.DB
 		
 		public MatchScore()
 		{
-			this._MatchOver = default(EntityRef<MatchOver>);
+			this._BowlStatus = default(EntityRef<BowlStatus>);
 			this._TournamentMatch = default(EntityRef<TournamentMatch>);
+			this._TournamentTeam = default(EntityRef<TournamentTeam>);
 			this._User = default(EntityRef<User>);
-			this._Team = default(EntityRef<Team>);
 			OnCreated();
 		}
 		
@@ -918,26 +537,46 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OverId", DbType="Int NOT NULL")]
-		public int OverId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BowlerId", DbType="Int NOT NULL")]
+		public int BowlerId
 		{
 			get
 			{
-				return this._OverId;
+				return this._BowlerId;
 			}
 			set
 			{
-				if ((this._OverId != value))
+				if ((this._BowlerId != value))
 				{
-					if (this._MatchOver.HasLoadedOrAssignedValue)
+					this.OnBowlerIdChanging(value);
+					this.SendPropertyChanging();
+					this._BowlerId = value;
+					this.SendPropertyChanged("BowlerId");
+					this.OnBowlerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BowlStatusId", DbType="Int NOT NULL")]
+		public int BowlStatusId
+		{
+			get
+			{
+				return this._BowlStatusId;
+			}
+			set
+			{
+				if ((this._BowlStatusId != value))
+				{
+					if (this._BowlStatus.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnOverIdChanging(value);
+					this.OnBowlStatusIdChanging(value);
 					this.SendPropertyChanging();
-					this._OverId = value;
-					this.SendPropertyChanged("OverId");
-					this.OnOverIdChanged();
+					this._BowlStatusId = value;
+					this.SendPropertyChanged("BowlStatusId");
+					this.OnBowlStatusIdChanged();
 				}
 			}
 		}
@@ -973,7 +612,7 @@ namespace gullycricket.DB
 			{
 				if ((this._TeamId != value))
 				{
-					if (this._Team.HasLoadedOrAssignedValue)
+					if (this._TournamentTeam.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -986,36 +625,36 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MatchOver_MatchScore", Storage="_MatchOver", ThisKey="OverId", OtherKey="Id", IsForeignKey=true)]
-		public MatchOver MatchOver
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BowlStatus_MatchScore", Storage="_BowlStatus", ThisKey="BowlStatusId", OtherKey="Id", IsForeignKey=true)]
+		public BowlStatus BowlStatus
 		{
 			get
 			{
-				return this._MatchOver.Entity;
+				return this._BowlStatus.Entity;
 			}
 			set
 			{
-				MatchOver previousValue = this._MatchOver.Entity;
+				BowlStatus previousValue = this._BowlStatus.Entity;
 				if (((previousValue != value) 
-							|| (this._MatchOver.HasLoadedOrAssignedValue == false)))
+							|| (this._BowlStatus.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._MatchOver.Entity = null;
+						this._BowlStatus.Entity = null;
 						previousValue.MatchScores.Remove(this);
 					}
-					this._MatchOver.Entity = value;
+					this._BowlStatus.Entity = value;
 					if ((value != null))
 					{
 						value.MatchScores.Add(this);
-						this._OverId = value.Id;
+						this._BowlStatusId = value.Id;
 					}
 					else
 					{
-						this._OverId = default(int);
+						this._BowlStatusId = default(int);
 					}
-					this.SendPropertyChanged("MatchOver");
+					this.SendPropertyChanged("BowlStatus");
 				}
 			}
 		}
@@ -1054,6 +693,40 @@ namespace gullycricket.DB
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TournamentTeam_MatchScore", Storage="_TournamentTeam", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
+		public TournamentTeam TournamentTeam
+		{
+			get
+			{
+				return this._TournamentTeam.Entity;
+			}
+			set
+			{
+				TournamentTeam previousValue = this._TournamentTeam.Entity;
+				if (((previousValue != value) 
+							|| (this._TournamentTeam.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TournamentTeam.Entity = null;
+						previousValue.MatchScores.Remove(this);
+					}
+					this._TournamentTeam.Entity = value;
+					if ((value != null))
+					{
+						value.MatchScores.Add(this);
+						this._TeamId = value.Id;
+					}
+					else
+					{
+						this._TeamId = default(int);
+					}
+					this.SendPropertyChanged("TournamentTeam");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MatchScore", Storage="_User", ThisKey="BatsmanId", OtherKey="Id", IsForeignKey=true)]
 		public User User
 		{
@@ -1084,40 +757,6 @@ namespace gullycricket.DB
 						this._BatsmanId = default(int);
 					}
 					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_MatchScore", Storage="_Team", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
-		public Team Team
-		{
-			get
-			{
-				return this._Team.Entity;
-			}
-			set
-			{
-				Team previousValue = this._Team.Entity;
-				if (((previousValue != value) 
-							|| (this._Team.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Team.Entity = null;
-						previousValue.MatchScores.Remove(this);
-					}
-					this._Team.Entity = value;
-					if ((value != null))
-					{
-						value.MatchScores.Add(this);
-						this._TeamId = value.Id;
-					}
-					else
-					{
-						this._TeamId = default(int);
-					}
-					this.SendPropertyChanged("Team");
 				}
 			}
 		}
@@ -1371,29 +1010,37 @@ namespace gullycricket.DB
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TeamPlayers")]
-	public partial class TeamPlayer : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Team")]
+	public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
-		private int _TournamentId;
+		private string _TeamName;
 		
-		private int _TeamId;
+		private System.DateTime _RegisteredOn;
 		
-		private int _PlayerId;
+		private int _UserId;
 		
-		private System.DateTime _AddedOn;
+		private EntitySet<TeamPlayer> _TeamPlayers;
 		
-		private bool _IsPlaying;
+		private EntitySet<Tournament> _Tournaments;
+		
+		private EntitySet<TournamentMatch> _TournamentMatches;
+		
+		private EntitySet<TournamentMatch> _TournamentMatches1;
+		
+		private EntitySet<TournamentMatch> _TournamentMatches2;
+		
+		private EntitySet<TournamentMatch> _TournamentMatches3;
+		
+		private EntitySet<TournamentMatch> _TournamentMatches4;
+		
+		private EntitySet<TournamentTeam> _TournamentTeams;
 		
 		private EntityRef<User> _User;
-		
-		private EntityRef<Tournament> _Tournament;
-		
-		private EntityRef<Team> _Team;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1401,23 +1048,25 @@ namespace gullycricket.DB
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnTournamentIdChanging(int value);
-    partial void OnTournamentIdChanged();
-    partial void OnTeamIdChanging(int value);
-    partial void OnTeamIdChanged();
-    partial void OnPlayerIdChanging(int value);
-    partial void OnPlayerIdChanged();
-    partial void OnAddedOnChanging(System.DateTime value);
-    partial void OnAddedOnChanged();
-    partial void OnIsPlayingChanging(bool value);
-    partial void OnIsPlayingChanged();
+    partial void OnTeamNameChanging(string value);
+    partial void OnTeamNameChanged();
+    partial void OnRegisteredOnChanging(System.DateTime value);
+    partial void OnRegisteredOnChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
     #endregion
 		
-		public TeamPlayer()
+		public Team()
 		{
+			this._TeamPlayers = new EntitySet<TeamPlayer>(new Action<TeamPlayer>(this.attach_TeamPlayers), new Action<TeamPlayer>(this.detach_TeamPlayers));
+			this._Tournaments = new EntitySet<Tournament>(new Action<Tournament>(this.attach_Tournaments), new Action<Tournament>(this.detach_Tournaments));
+			this._TournamentMatches = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches), new Action<TournamentMatch>(this.detach_TournamentMatches));
+			this._TournamentMatches1 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches1), new Action<TournamentMatch>(this.detach_TournamentMatches1));
+			this._TournamentMatches2 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches2), new Action<TournamentMatch>(this.detach_TournamentMatches2));
+			this._TournamentMatches3 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches3), new Action<TournamentMatch>(this.detach_TournamentMatches3));
+			this._TournamentMatches4 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches4), new Action<TournamentMatch>(this.detach_TournamentMatches4));
+			this._TournamentTeams = new EntitySet<TournamentTeam>(new Action<TournamentTeam>(this.attach_TournamentTeams), new Action<TournamentTeam>(this.detach_TournamentTeams));
 			this._User = default(EntityRef<User>);
-			this._Tournament = default(EntityRef<Tournament>);
-			this._Team = default(EntityRef<Team>);
 			OnCreated();
 		}
 		
@@ -1441,26 +1090,384 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TournamentId", DbType="Int NOT NULL")]
-		public int TournamentId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string TeamName
 		{
 			get
 			{
-				return this._TournamentId;
+				return this._TeamName;
 			}
 			set
 			{
-				if ((this._TournamentId != value))
+				if ((this._TeamName != value))
 				{
-					if (this._Tournament.HasLoadedOrAssignedValue)
+					this.OnTeamNameChanging(value);
+					this.SendPropertyChanging();
+					this._TeamName = value;
+					this.SendPropertyChanged("TeamName");
+					this.OnTeamNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RegisteredOn", DbType="DateTime NOT NULL")]
+		public System.DateTime RegisteredOn
+		{
+			get
+			{
+				return this._RegisteredOn;
+			}
+			set
+			{
+				if ((this._RegisteredOn != value))
+				{
+					this.OnRegisteredOnChanging(value);
+					this.SendPropertyChanging();
+					this._RegisteredOn = value;
+					this.SendPropertyChanged("RegisteredOn");
+					this.OnRegisteredOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnTournamentIdChanging(value);
+					this.OnUserIdChanging(value);
 					this.SendPropertyChanging();
-					this._TournamentId = value;
-					this.SendPropertyChanged("TournamentId");
-					this.OnTournamentIdChanged();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TeamPlayer", Storage="_TeamPlayers", ThisKey="Id", OtherKey="TeamId")]
+		public EntitySet<TeamPlayer> TeamPlayers
+		{
+			get
+			{
+				return this._TeamPlayers;
+			}
+			set
+			{
+				this._TeamPlayers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_Tournament", Storage="_Tournaments", ThisKey="Id", OtherKey="WinnerId")]
+		public EntitySet<Tournament> Tournaments
+		{
+			get
+			{
+				return this._Tournaments;
+			}
+			set
+			{
+				this._Tournaments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch", Storage="_TournamentMatches", ThisKey="Id", OtherKey="Team1Id")]
+		public EntitySet<TournamentMatch> TournamentMatches
+		{
+			get
+			{
+				return this._TournamentMatches;
+			}
+			set
+			{
+				this._TournamentMatches.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch1", Storage="_TournamentMatches1", ThisKey="Id", OtherKey="Team2Id")]
+		public EntitySet<TournamentMatch> TournamentMatches1
+		{
+			get
+			{
+				return this._TournamentMatches1;
+			}
+			set
+			{
+				this._TournamentMatches1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch2", Storage="_TournamentMatches2", ThisKey="Id", OtherKey="WinnerTeamId")]
+		public EntitySet<TournamentMatch> TournamentMatches2
+		{
+			get
+			{
+				return this._TournamentMatches2;
+			}
+			set
+			{
+				this._TournamentMatches2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch3", Storage="_TournamentMatches3", ThisKey="Id", OtherKey="CurrentInningTeamId")]
+		public EntitySet<TournamentMatch> TournamentMatches3
+		{
+			get
+			{
+				return this._TournamentMatches3;
+			}
+			set
+			{
+				this._TournamentMatches3.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch4", Storage="_TournamentMatches4", ThisKey="Id", OtherKey="TossWinningTeamId")]
+		public EntitySet<TournamentMatch> TournamentMatches4
+		{
+			get
+			{
+				return this._TournamentMatches4;
+			}
+			set
+			{
+				this._TournamentMatches4.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentTeam", Storage="_TournamentTeams", ThisKey="Id", OtherKey="TeamId")]
+		public EntitySet<TournamentTeam> TournamentTeams
+		{
+			get
+			{
+				return this._TournamentTeams;
+			}
+			set
+			{
+				this._TournamentTeams.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Team", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Teams.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Teams.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_TeamPlayers(TeamPlayer entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = this;
+		}
+		
+		private void detach_TeamPlayers(TeamPlayer entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = null;
+		}
+		
+		private void attach_Tournaments(Tournament entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = this;
+		}
+		
+		private void detach_Tournaments(Tournament entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = null;
+		}
+		
+		private void attach_TournamentMatches(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = this;
+		}
+		
+		private void detach_TournamentMatches(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = null;
+		}
+		
+		private void attach_TournamentMatches1(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team1 = this;
+		}
+		
+		private void detach_TournamentMatches1(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team1 = null;
+		}
+		
+		private void attach_TournamentMatches2(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team2 = this;
+		}
+		
+		private void detach_TournamentMatches2(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team2 = null;
+		}
+		
+		private void attach_TournamentMatches3(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team3 = this;
+		}
+		
+		private void detach_TournamentMatches3(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team3 = null;
+		}
+		
+		private void attach_TournamentMatches4(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team4 = this;
+		}
+		
+		private void detach_TournamentMatches4(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team4 = null;
+		}
+		
+		private void attach_TournamentTeams(TournamentTeam entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = this;
+		}
+		
+		private void detach_TournamentTeams(TournamentTeam entity)
+		{
+			this.SendPropertyChanging();
+			entity.Team = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TeamPlayers")]
+	public partial class TeamPlayer : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _TeamId;
+		
+		private int _PlayerId;
+		
+		private System.DateTime _AddedOn;
+		
+		private bool _IsPlaying;
+		
+		private EntityRef<Team> _Team;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTeamIdChanging(int value);
+    partial void OnTeamIdChanged();
+    partial void OnPlayerIdChanging(int value);
+    partial void OnPlayerIdChanged();
+    partial void OnAddedOnChanging(System.DateTime value);
+    partial void OnAddedOnChanged();
+    partial void OnIsPlayingChanging(bool value);
+    partial void OnIsPlayingChanged();
+    #endregion
+		
+		public TeamPlayer()
+		{
+			this._Team = default(EntityRef<Team>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
@@ -1553,74 +1560,6 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_TeamPlayer", Storage="_User", ThisKey="PlayerId", OtherKey="Id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.TeamPlayers.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.TeamPlayers.Add(this);
-						this._PlayerId = value.Id;
-					}
-					else
-					{
-						this._PlayerId = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TeamPlayer", Storage="_Tournament", ThisKey="TournamentId", OtherKey="Id", IsForeignKey=true)]
-		public Tournament Tournament
-		{
-			get
-			{
-				return this._Tournament.Entity;
-			}
-			set
-			{
-				Tournament previousValue = this._Tournament.Entity;
-				if (((previousValue != value) 
-							|| (this._Tournament.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tournament.Entity = null;
-						previousValue.TeamPlayers.Remove(this);
-					}
-					this._Tournament.Entity = value;
-					if ((value != null))
-					{
-						value.TeamPlayers.Add(this);
-						this._TournamentId = value.Id;
-					}
-					else
-					{
-						this._TournamentId = default(int);
-					}
-					this.SendPropertyChanged("Tournament");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TeamPlayer", Storage="_Team", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
 		public Team Team
 		{
@@ -1655,6 +1594,40 @@ namespace gullycricket.DB
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_TeamPlayer", Storage="_User", ThisKey="PlayerId", OtherKey="Id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.TeamPlayers.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.TeamPlayers.Add(this);
+						this._PlayerId = value.Id;
+					}
+					else
+					{
+						this._PlayerId = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1676,6 +1649,302 @@ namespace gullycricket.DB
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tournament")]
+	public partial class Tournament : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _UserId;
+		
+		private string _TournamentName;
+		
+		private System.DateTime _RegisteredOn;
+		
+		private System.Nullable<int> _WinnerId;
+		
+		private EntitySet<TournamentMatch> _TournamentMatches;
+		
+		private EntitySet<TournamentTeam> _TournamentTeams;
+		
+		private EntityRef<Team> _Team;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnTournamentNameChanging(string value);
+    partial void OnTournamentNameChanged();
+    partial void OnRegisteredOnChanging(System.DateTime value);
+    partial void OnRegisteredOnChanged();
+    partial void OnWinnerIdChanging(System.Nullable<int> value);
+    partial void OnWinnerIdChanged();
+    #endregion
+		
+		public Tournament()
+		{
+			this._TournamentMatches = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches), new Action<TournamentMatch>(this.detach_TournamentMatches));
+			this._TournamentTeams = new EntitySet<TournamentTeam>(new Action<TournamentTeam>(this.attach_TournamentTeams), new Action<TournamentTeam>(this.detach_TournamentTeams));
+			this._Team = default(EntityRef<Team>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TournamentName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string TournamentName
+		{
+			get
+			{
+				return this._TournamentName;
+			}
+			set
+			{
+				if ((this._TournamentName != value))
+				{
+					this.OnTournamentNameChanging(value);
+					this.SendPropertyChanging();
+					this._TournamentName = value;
+					this.SendPropertyChanged("TournamentName");
+					this.OnTournamentNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RegisteredOn", DbType="DateTime NOT NULL")]
+		public System.DateTime RegisteredOn
+		{
+			get
+			{
+				return this._RegisteredOn;
+			}
+			set
+			{
+				if ((this._RegisteredOn != value))
+				{
+					this.OnRegisteredOnChanging(value);
+					this.SendPropertyChanging();
+					this._RegisteredOn = value;
+					this.SendPropertyChanged("RegisteredOn");
+					this.OnRegisteredOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WinnerId", DbType="Int")]
+		public System.Nullable<int> WinnerId
+		{
+			get
+			{
+				return this._WinnerId;
+			}
+			set
+			{
+				if ((this._WinnerId != value))
+				{
+					if (this._Team.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnWinnerIdChanging(value);
+					this.SendPropertyChanging();
+					this._WinnerId = value;
+					this.SendPropertyChanged("WinnerId");
+					this.OnWinnerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentMatch", Storage="_TournamentMatches", ThisKey="Id", OtherKey="TournamentId")]
+		public EntitySet<TournamentMatch> TournamentMatches
+		{
+			get
+			{
+				return this._TournamentMatches;
+			}
+			set
+			{
+				this._TournamentMatches.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentTeam", Storage="_TournamentTeams", ThisKey="Id", OtherKey="TournamentId")]
+		public EntitySet<TournamentTeam> TournamentTeams
+		{
+			get
+			{
+				return this._TournamentTeams;
+			}
+			set
+			{
+				this._TournamentTeams.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_Tournament", Storage="_Team", ThisKey="WinnerId", OtherKey="Id", IsForeignKey=true)]
+		public Team Team
+		{
+			get
+			{
+				return this._Team.Entity;
+			}
+			set
+			{
+				Team previousValue = this._Team.Entity;
+				if (((previousValue != value) 
+							|| (this._Team.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Team.Entity = null;
+						previousValue.Tournaments.Remove(this);
+					}
+					this._Team.Entity = value;
+					if ((value != null))
+					{
+						value.Tournaments.Add(this);
+						this._WinnerId = value.Id;
+					}
+					else
+					{
+						this._WinnerId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Team");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Tournament", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Tournaments.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Tournaments.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_TournamentMatches(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tournament = this;
+		}
+		
+		private void detach_TournamentMatches(TournamentMatch entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tournament = null;
+		}
+		
+		private void attach_TournamentTeams(TournamentTeam entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tournament = this;
+		}
+		
+		private void detach_TournamentTeams(TournamentTeam entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tournament = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TournamentMatches")]
 	public partial class TournamentMatch : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1694,19 +1963,17 @@ namespace gullycricket.DB
 		
 		private System.DateTime _StartingDate;
 		
-		private int _WinnerTeamId;
+		private System.Nullable<int> _TossWinningTeamId;
 		
-		private int _TargetScore;
+		private System.Nullable<int> _WinnerTeamId;
 		
-		private int _CurrentInningTeamId;
+		private System.Nullable<int> _TargetScore;
 		
-		private EntitySet<MatchOver> _MatchOvers;
+		private System.Nullable<int> _CurrentInningTeamId;
 		
 		private EntitySet<MatchScore> _MatchScores;
 		
 		private EntityRef<MatchStatus> _MatchStatus;
-		
-		private EntityRef<Tournament> _Tournament;
 		
 		private EntityRef<Team> _Team;
 		
@@ -1715,6 +1982,10 @@ namespace gullycricket.DB
 		private EntityRef<Team> _Team2;
 		
 		private EntityRef<Team> _Team3;
+		
+		private EntityRef<Team> _Team4;
+		
+		private EntityRef<Tournament> _Tournament;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1732,24 +2003,26 @@ namespace gullycricket.DB
     partial void OnMatchStatusIdChanged();
     partial void OnStartingDateChanging(System.DateTime value);
     partial void OnStartingDateChanged();
-    partial void OnWinnerTeamIdChanging(int value);
+    partial void OnTossWinningTeamIdChanging(System.Nullable<int> value);
+    partial void OnTossWinningTeamIdChanged();
+    partial void OnWinnerTeamIdChanging(System.Nullable<int> value);
     partial void OnWinnerTeamIdChanged();
-    partial void OnTargetScoreChanging(int value);
+    partial void OnTargetScoreChanging(System.Nullable<int> value);
     partial void OnTargetScoreChanged();
-    partial void OnCurrentInningTeamIdChanging(int value);
+    partial void OnCurrentInningTeamIdChanging(System.Nullable<int> value);
     partial void OnCurrentInningTeamIdChanged();
     #endregion
 		
 		public TournamentMatch()
 		{
-			this._MatchOvers = new EntitySet<MatchOver>(new Action<MatchOver>(this.attach_MatchOvers), new Action<MatchOver>(this.detach_MatchOvers));
 			this._MatchScores = new EntitySet<MatchScore>(new Action<MatchScore>(this.attach_MatchScores), new Action<MatchScore>(this.detach_MatchScores));
 			this._MatchStatus = default(EntityRef<MatchStatus>);
-			this._Tournament = default(EntityRef<Tournament>);
 			this._Team = default(EntityRef<Team>);
 			this._Team1 = default(EntityRef<Team>);
 			this._Team2 = default(EntityRef<Team>);
 			this._Team3 = default(EntityRef<Team>);
+			this._Team4 = default(EntityRef<Team>);
+			this._Tournament = default(EntityRef<Tournament>);
 			OnCreated();
 		}
 		
@@ -1889,8 +2162,32 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WinnerTeamId", DbType="Int NOT NULL")]
-		public int WinnerTeamId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TossWinningTeamId", DbType="Int")]
+		public System.Nullable<int> TossWinningTeamId
+		{
+			get
+			{
+				return this._TossWinningTeamId;
+			}
+			set
+			{
+				if ((this._TossWinningTeamId != value))
+				{
+					if (this._Team4.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTossWinningTeamIdChanging(value);
+					this.SendPropertyChanging();
+					this._TossWinningTeamId = value;
+					this.SendPropertyChanged("TossWinningTeamId");
+					this.OnTossWinningTeamIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WinnerTeamId", DbType="Int")]
+		public System.Nullable<int> WinnerTeamId
 		{
 			get
 			{
@@ -1913,8 +2210,8 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TargetScore", DbType="Int NOT NULL")]
-		public int TargetScore
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TargetScore", DbType="Int")]
+		public System.Nullable<int> TargetScore
 		{
 			get
 			{
@@ -1933,8 +2230,8 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentInningTeamId", DbType="Int NOT NULL")]
-		public int CurrentInningTeamId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentInningTeamId", DbType="Int")]
+		public System.Nullable<int> CurrentInningTeamId
 		{
 			get
 			{
@@ -1954,19 +2251,6 @@ namespace gullycricket.DB
 					this.SendPropertyChanged("CurrentInningTeamId");
 					this.OnCurrentInningTeamIdChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TournamentMatch_MatchOver", Storage="_MatchOvers", ThisKey="Id", OtherKey="MatchId")]
-		public EntitySet<MatchOver> MatchOvers
-		{
-			get
-			{
-				return this._MatchOvers;
-			}
-			set
-			{
-				this._MatchOvers.Assign(value);
 			}
 		}
 		
@@ -2013,40 +2297,6 @@ namespace gullycricket.DB
 						this._MatchStatusId = default(int);
 					}
 					this.SendPropertyChanged("MatchStatus");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentMatch", Storage="_Tournament", ThisKey="TournamentId", OtherKey="Id", IsForeignKey=true)]
-		public Tournament Tournament
-		{
-			get
-			{
-				return this._Tournament.Entity;
-			}
-			set
-			{
-				Tournament previousValue = this._Tournament.Entity;
-				if (((previousValue != value) 
-							|| (this._Tournament.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tournament.Entity = null;
-						previousValue.TournamentMatches.Remove(this);
-					}
-					this._Tournament.Entity = value;
-					if ((value != null))
-					{
-						value.TournamentMatches.Add(this);
-						this._TournamentId = value.Id;
-					}
-					else
-					{
-						this._TournamentId = default(int);
-					}
-					this.SendPropertyChanged("Tournament");
 				}
 			}
 		}
@@ -2146,7 +2396,7 @@ namespace gullycricket.DB
 					}
 					else
 					{
-						this._WinnerTeamId = default(int);
+						this._WinnerTeamId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Team2");
 				}
@@ -2180,9 +2430,77 @@ namespace gullycricket.DB
 					}
 					else
 					{
-						this._CurrentInningTeamId = default(int);
+						this._CurrentInningTeamId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Team3");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch4", Storage="_Team4", ThisKey="TossWinningTeamId", OtherKey="Id", IsForeignKey=true)]
+		public Team Team4
+		{
+			get
+			{
+				return this._Team4.Entity;
+			}
+			set
+			{
+				Team previousValue = this._Team4.Entity;
+				if (((previousValue != value) 
+							|| (this._Team4.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Team4.Entity = null;
+						previousValue.TournamentMatches4.Remove(this);
+					}
+					this._Team4.Entity = value;
+					if ((value != null))
+					{
+						value.TournamentMatches4.Add(this);
+						this._TossWinningTeamId = value.Id;
+					}
+					else
+					{
+						this._TossWinningTeamId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Team4");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentMatch", Storage="_Tournament", ThisKey="TournamentId", OtherKey="Id", IsForeignKey=true)]
+		public Tournament Tournament
+		{
+			get
+			{
+				return this._Tournament.Entity;
+			}
+			set
+			{
+				Tournament previousValue = this._Tournament.Entity;
+				if (((previousValue != value) 
+							|| (this._Tournament.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tournament.Entity = null;
+						previousValue.TournamentMatches.Remove(this);
+					}
+					this._Tournament.Entity = value;
+					if ((value != null))
+					{
+						value.TournamentMatches.Add(this);
+						this._TournamentId = value.Id;
+					}
+					else
+					{
+						this._TournamentId = default(int);
+					}
+					this.SendPropertyChanged("Tournament");
 				}
 			}
 		}
@@ -2205,18 +2523,6 @@ namespace gullycricket.DB
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_MatchOvers(MatchOver entity)
-		{
-			this.SendPropertyChanging();
-			entity.TournamentMatch = this;
-		}
-		
-		private void detach_MatchOvers(MatchOver entity)
-		{
-			this.SendPropertyChanging();
-			entity.TournamentMatch = null;
 		}
 		
 		private void attach_MatchScores(MatchScore entity)
@@ -2244,9 +2550,11 @@ namespace gullycricket.DB
 		
 		private int _TeamId;
 		
-		private EntityRef<Tournament> _Tournament;
+		private EntitySet<MatchScore> _MatchScores;
 		
 		private EntityRef<Team> _Team;
+		
+		private EntityRef<Tournament> _Tournament;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2262,8 +2570,9 @@ namespace gullycricket.DB
 		
 		public TournamentTeam()
 		{
-			this._Tournament = default(EntityRef<Tournament>);
+			this._MatchScores = new EntitySet<MatchScore>(new Action<MatchScore>(this.attach_MatchScores), new Action<MatchScore>(this.detach_MatchScores));
 			this._Team = default(EntityRef<Team>);
+			this._Tournament = default(EntityRef<Tournament>);
 			OnCreated();
 		}
 		
@@ -2335,37 +2644,16 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentTeam", Storage="_Tournament", ThisKey="TournamentId", OtherKey="Id", IsForeignKey=true)]
-		public Tournament Tournament
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TournamentTeam_MatchScore", Storage="_MatchScores", ThisKey="Id", OtherKey="TeamId")]
+		public EntitySet<MatchScore> MatchScores
 		{
 			get
 			{
-				return this._Tournament.Entity;
+				return this._MatchScores;
 			}
 			set
 			{
-				Tournament previousValue = this._Tournament.Entity;
-				if (((previousValue != value) 
-							|| (this._Tournament.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tournament.Entity = null;
-						previousValue.TournamentTeams.Remove(this);
-					}
-					this._Tournament.Entity = value;
-					if ((value != null))
-					{
-						value.TournamentTeams.Add(this);
-						this._TournamentId = value.Id;
-					}
-					else
-					{
-						this._TournamentId = default(int);
-					}
-					this.SendPropertyChanged("Tournament");
-				}
+				this._MatchScores.Assign(value);
 			}
 		}
 		
@@ -2403,6 +2691,40 @@ namespace gullycricket.DB
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentTeam", Storage="_Tournament", ThisKey="TournamentId", OtherKey="Id", IsForeignKey=true)]
+		public Tournament Tournament
+		{
+			get
+			{
+				return this._Tournament.Entity;
+			}
+			set
+			{
+				Tournament previousValue = this._Tournament.Entity;
+				if (((previousValue != value) 
+							|| (this._Tournament.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tournament.Entity = null;
+						previousValue.TournamentTeams.Remove(this);
+					}
+					this._Tournament.Entity = value;
+					if ((value != null))
+					{
+						value.TournamentTeams.Add(this);
+						this._TournamentId = value.Id;
+					}
+					else
+					{
+						this._TournamentId = default(int);
+					}
+					this.SendPropertyChanged("Tournament");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2421,6 +2743,18 @@ namespace gullycricket.DB
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_MatchScores(MatchScore entity)
+		{
+			this.SendPropertyChanging();
+			entity.TournamentTeam = this;
+		}
+		
+		private void detach_MatchScores(MatchScore entity)
+		{
+			this.SendPropertyChanging();
+			entity.TournamentTeam = null;
 		}
 	}
 	
@@ -2452,15 +2786,13 @@ namespace gullycricket.DB
 		
 		private System.Nullable<int> _PlayerTypeId;
 		
-		private EntitySet<MatchOver> _MatchOvers;
-		
 		private EntitySet<MatchScore> _MatchScores;
+		
+		private EntitySet<Team> _Teams;
 		
 		private EntitySet<TeamPlayer> _TeamPlayers;
 		
 		private EntitySet<Tournament> _Tournaments;
-		
-		private EntitySet<Team> _Teams;
 		
 		private EntityRef<PlayerType> _PlayerType;
 		
@@ -2496,11 +2828,10 @@ namespace gullycricket.DB
 		
 		public User()
 		{
-			this._MatchOvers = new EntitySet<MatchOver>(new Action<MatchOver>(this.attach_MatchOvers), new Action<MatchOver>(this.detach_MatchOvers));
 			this._MatchScores = new EntitySet<MatchScore>(new Action<MatchScore>(this.attach_MatchScores), new Action<MatchScore>(this.detach_MatchScores));
+			this._Teams = new EntitySet<Team>(new Action<Team>(this.attach_Teams), new Action<Team>(this.detach_Teams));
 			this._TeamPlayers = new EntitySet<TeamPlayer>(new Action<TeamPlayer>(this.attach_TeamPlayers), new Action<TeamPlayer>(this.detach_TeamPlayers));
 			this._Tournaments = new EntitySet<Tournament>(new Action<Tournament>(this.attach_Tournaments), new Action<Tournament>(this.detach_Tournaments));
-			this._Teams = new EntitySet<Team>(new Action<Team>(this.attach_Teams), new Action<Team>(this.detach_Teams));
 			this._PlayerType = default(EntityRef<PlayerType>);
 			this._UserType = default(EntityRef<UserType>);
 			OnCreated();
@@ -2734,19 +3065,6 @@ namespace gullycricket.DB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MatchOver", Storage="_MatchOvers", ThisKey="Id", OtherKey="BowlerId")]
-		public EntitySet<MatchOver> MatchOvers
-		{
-			get
-			{
-				return this._MatchOvers;
-			}
-			set
-			{
-				this._MatchOvers.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MatchScore", Storage="_MatchScores", ThisKey="Id", OtherKey="BatsmanId")]
 		public EntitySet<MatchScore> MatchScores
 		{
@@ -2757,6 +3075,19 @@ namespace gullycricket.DB
 			set
 			{
 				this._MatchScores.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Team", Storage="_Teams", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<Team> Teams
+		{
+			get
+			{
+				return this._Teams;
+			}
+			set
+			{
+				this._Teams.Assign(value);
 			}
 		}
 		
@@ -2783,19 +3114,6 @@ namespace gullycricket.DB
 			set
 			{
 				this._Tournaments.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Team", Storage="_Teams", ThisKey="Id", OtherKey="UserId")]
-		public EntitySet<Team> Teams
-		{
-			get
-			{
-				return this._Teams;
-			}
-			set
-			{
-				this._Teams.Assign(value);
 			}
 		}
 		
@@ -2887,18 +3205,6 @@ namespace gullycricket.DB
 			}
 		}
 		
-		private void attach_MatchOvers(MatchOver entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_MatchOvers(MatchOver entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-		
 		private void attach_MatchScores(MatchScore entity)
 		{
 			this.SendPropertyChanging();
@@ -2906,30 +3212,6 @@ namespace gullycricket.DB
 		}
 		
 		private void detach_MatchScores(MatchScore entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-		
-		private void attach_TeamPlayers(TeamPlayer entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_TeamPlayers(TeamPlayer entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-		
-		private void attach_Tournaments(Tournament entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_Tournaments(Tournament entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
@@ -2946,756 +3228,29 @@ namespace gullycricket.DB
 			this.SendPropertyChanging();
 			entity.User = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tournament")]
-	public partial class Tournament : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _UserId;
-		
-		private string _TournamentName;
-		
-		private System.DateTime _RegisteredOn;
-		
-		private System.Nullable<int> _WinnerId;
-		
-		private EntitySet<TeamPlayer> _TeamPlayers;
-		
-		private EntitySet<TournamentMatch> _TournamentMatches;
-		
-		private EntitySet<TournamentTeam> _TournamentTeams;
-		
-		private EntityRef<User> _User;
-		
-		private EntityRef<Team> _Team;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    partial void OnTournamentNameChanging(string value);
-    partial void OnTournamentNameChanged();
-    partial void OnRegisteredOnChanging(System.DateTime value);
-    partial void OnRegisteredOnChanged();
-    partial void OnWinnerIdChanging(System.Nullable<int> value);
-    partial void OnWinnerIdChanged();
-    #endregion
-		
-		public Tournament()
-		{
-			this._TeamPlayers = new EntitySet<TeamPlayer>(new Action<TeamPlayer>(this.attach_TeamPlayers), new Action<TeamPlayer>(this.detach_TeamPlayers));
-			this._TournamentMatches = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches), new Action<TournamentMatch>(this.detach_TournamentMatches));
-			this._TournamentTeams = new EntitySet<TournamentTeam>(new Action<TournamentTeam>(this.attach_TournamentTeams), new Action<TournamentTeam>(this.detach_TournamentTeams));
-			this._User = default(EntityRef<User>);
-			this._Team = default(EntityRef<Team>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
-		public int UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TournamentName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string TournamentName
-		{
-			get
-			{
-				return this._TournamentName;
-			}
-			set
-			{
-				if ((this._TournamentName != value))
-				{
-					this.OnTournamentNameChanging(value);
-					this.SendPropertyChanging();
-					this._TournamentName = value;
-					this.SendPropertyChanged("TournamentName");
-					this.OnTournamentNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RegisteredOn", DbType="DateTime NOT NULL")]
-		public System.DateTime RegisteredOn
-		{
-			get
-			{
-				return this._RegisteredOn;
-			}
-			set
-			{
-				if ((this._RegisteredOn != value))
-				{
-					this.OnRegisteredOnChanging(value);
-					this.SendPropertyChanging();
-					this._RegisteredOn = value;
-					this.SendPropertyChanged("RegisteredOn");
-					this.OnRegisteredOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WinnerId", DbType="Int")]
-		public System.Nullable<int> WinnerId
-		{
-			get
-			{
-				return this._WinnerId;
-			}
-			set
-			{
-				if ((this._WinnerId != value))
-				{
-					if (this._Team.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnWinnerIdChanging(value);
-					this.SendPropertyChanging();
-					this._WinnerId = value;
-					this.SendPropertyChanged("WinnerId");
-					this.OnWinnerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TeamPlayer", Storage="_TeamPlayers", ThisKey="Id", OtherKey="TournamentId")]
-		public EntitySet<TeamPlayer> TeamPlayers
-		{
-			get
-			{
-				return this._TeamPlayers;
-			}
-			set
-			{
-				this._TeamPlayers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentMatch", Storage="_TournamentMatches", ThisKey="Id", OtherKey="TournamentId")]
-		public EntitySet<TournamentMatch> TournamentMatches
-		{
-			get
-			{
-				return this._TournamentMatches;
-			}
-			set
-			{
-				this._TournamentMatches.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tournament_TournamentTeam", Storage="_TournamentTeams", ThisKey="Id", OtherKey="TournamentId")]
-		public EntitySet<TournamentTeam> TournamentTeams
-		{
-			get
-			{
-				return this._TournamentTeams;
-			}
-			set
-			{
-				this._TournamentTeams.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Tournament", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Tournaments.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Tournaments.Add(this);
-						this._UserId = value.Id;
-					}
-					else
-					{
-						this._UserId = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_Tournament", Storage="_Team", ThisKey="WinnerId", OtherKey="Id", IsForeignKey=true)]
-		public Team Team
-		{
-			get
-			{
-				return this._Team.Entity;
-			}
-			set
-			{
-				Team previousValue = this._Team.Entity;
-				if (((previousValue != value) 
-							|| (this._Team.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Team.Entity = null;
-						previousValue.Tournaments.Remove(this);
-					}
-					this._Team.Entity = value;
-					if ((value != null))
-					{
-						value.Tournaments.Add(this);
-						this._WinnerId = value.Id;
-					}
-					else
-					{
-						this._WinnerId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Team");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
 		
 		private void attach_TeamPlayers(TeamPlayer entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tournament = this;
+			entity.User = this;
 		}
 		
 		private void detach_TeamPlayers(TeamPlayer entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tournament = null;
-		}
-		
-		private void attach_TournamentMatches(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tournament = this;
-		}
-		
-		private void detach_TournamentMatches(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tournament = null;
-		}
-		
-		private void attach_TournamentTeams(TournamentTeam entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tournament = this;
-		}
-		
-		private void detach_TournamentTeams(TournamentTeam entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tournament = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Team")]
-	public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _TeamName;
-		
-		private System.DateTime _RegisteredOn;
-		
-		private int _UserId;
-		
-		private EntitySet<MatchOver> _MatchOvers;
-		
-		private EntitySet<MatchScore> _MatchScores;
-		
-		private EntitySet<TeamPlayer> _TeamPlayers;
-		
-		private EntitySet<TournamentMatch> _TournamentMatches;
-		
-		private EntitySet<TournamentMatch> _TournamentMatches1;
-		
-		private EntitySet<TournamentMatch> _TournamentMatches2;
-		
-		private EntitySet<TournamentMatch> _TournamentMatches3;
-		
-		private EntitySet<TournamentTeam> _TournamentTeams;
-		
-		private EntitySet<Tournament> _Tournaments;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnTeamNameChanging(string value);
-    partial void OnTeamNameChanged();
-    partial void OnRegisteredOnChanging(System.DateTime value);
-    partial void OnRegisteredOnChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    #endregion
-		
-		public Team()
-		{
-			this._MatchOvers = new EntitySet<MatchOver>(new Action<MatchOver>(this.attach_MatchOvers), new Action<MatchOver>(this.detach_MatchOvers));
-			this._MatchScores = new EntitySet<MatchScore>(new Action<MatchScore>(this.attach_MatchScores), new Action<MatchScore>(this.detach_MatchScores));
-			this._TeamPlayers = new EntitySet<TeamPlayer>(new Action<TeamPlayer>(this.attach_TeamPlayers), new Action<TeamPlayer>(this.detach_TeamPlayers));
-			this._TournamentMatches = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches), new Action<TournamentMatch>(this.detach_TournamentMatches));
-			this._TournamentMatches1 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches1), new Action<TournamentMatch>(this.detach_TournamentMatches1));
-			this._TournamentMatches2 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches2), new Action<TournamentMatch>(this.detach_TournamentMatches2));
-			this._TournamentMatches3 = new EntitySet<TournamentMatch>(new Action<TournamentMatch>(this.attach_TournamentMatches3), new Action<TournamentMatch>(this.detach_TournamentMatches3));
-			this._TournamentTeams = new EntitySet<TournamentTeam>(new Action<TournamentTeam>(this.attach_TournamentTeams), new Action<TournamentTeam>(this.detach_TournamentTeams));
-			this._Tournaments = new EntitySet<Tournament>(new Action<Tournament>(this.attach_Tournaments), new Action<Tournament>(this.detach_Tournaments));
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string TeamName
-		{
-			get
-			{
-				return this._TeamName;
-			}
-			set
-			{
-				if ((this._TeamName != value))
-				{
-					this.OnTeamNameChanging(value);
-					this.SendPropertyChanging();
-					this._TeamName = value;
-					this.SendPropertyChanged("TeamName");
-					this.OnTeamNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RegisteredOn", DbType="DateTime NOT NULL")]
-		public System.DateTime RegisteredOn
-		{
-			get
-			{
-				return this._RegisteredOn;
-			}
-			set
-			{
-				if ((this._RegisteredOn != value))
-				{
-					this.OnRegisteredOnChanging(value);
-					this.SendPropertyChanging();
-					this._RegisteredOn = value;
-					this.SendPropertyChanged("RegisteredOn");
-					this.OnRegisteredOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
-		public int UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_MatchOver", Storage="_MatchOvers", ThisKey="Id", OtherKey="TeamId")]
-		public EntitySet<MatchOver> MatchOvers
-		{
-			get
-			{
-				return this._MatchOvers;
-			}
-			set
-			{
-				this._MatchOvers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_MatchScore", Storage="_MatchScores", ThisKey="Id", OtherKey="TeamId")]
-		public EntitySet<MatchScore> MatchScores
-		{
-			get
-			{
-				return this._MatchScores;
-			}
-			set
-			{
-				this._MatchScores.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TeamPlayer", Storage="_TeamPlayers", ThisKey="Id", OtherKey="TeamId")]
-		public EntitySet<TeamPlayer> TeamPlayers
-		{
-			get
-			{
-				return this._TeamPlayers;
-			}
-			set
-			{
-				this._TeamPlayers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch", Storage="_TournamentMatches", ThisKey="Id", OtherKey="Team1Id")]
-		public EntitySet<TournamentMatch> TournamentMatches
-		{
-			get
-			{
-				return this._TournamentMatches;
-			}
-			set
-			{
-				this._TournamentMatches.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch1", Storage="_TournamentMatches1", ThisKey="Id", OtherKey="Team2Id")]
-		public EntitySet<TournamentMatch> TournamentMatches1
-		{
-			get
-			{
-				return this._TournamentMatches1;
-			}
-			set
-			{
-				this._TournamentMatches1.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch2", Storage="_TournamentMatches2", ThisKey="Id", OtherKey="WinnerTeamId")]
-		public EntitySet<TournamentMatch> TournamentMatches2
-		{
-			get
-			{
-				return this._TournamentMatches2;
-			}
-			set
-			{
-				this._TournamentMatches2.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentMatch3", Storage="_TournamentMatches3", ThisKey="Id", OtherKey="CurrentInningTeamId")]
-		public EntitySet<TournamentMatch> TournamentMatches3
-		{
-			get
-			{
-				return this._TournamentMatches3;
-			}
-			set
-			{
-				this._TournamentMatches3.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_TournamentTeam", Storage="_TournamentTeams", ThisKey="Id", OtherKey="TeamId")]
-		public EntitySet<TournamentTeam> TournamentTeams
-		{
-			get
-			{
-				return this._TournamentTeams;
-			}
-			set
-			{
-				this._TournamentTeams.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Team_Tournament", Storage="_Tournaments", ThisKey="Id", OtherKey="WinnerId")]
-		public EntitySet<Tournament> Tournaments
-		{
-			get
-			{
-				return this._Tournaments;
-			}
-			set
-			{
-				this._Tournaments.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Team", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Teams.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Teams.Add(this);
-						this._UserId = value.Id;
-					}
-					else
-					{
-						this._UserId = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_MatchOvers(MatchOver entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = this;
-		}
-		
-		private void detach_MatchOvers(MatchOver entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = null;
-		}
-		
-		private void attach_MatchScores(MatchScore entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = this;
-		}
-		
-		private void detach_MatchScores(MatchScore entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = null;
-		}
-		
-		private void attach_TeamPlayers(TeamPlayer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = this;
-		}
-		
-		private void detach_TeamPlayers(TeamPlayer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = null;
-		}
-		
-		private void attach_TournamentMatches(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = this;
-		}
-		
-		private void detach_TournamentMatches(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = null;
-		}
-		
-		private void attach_TournamentMatches1(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team1 = this;
-		}
-		
-		private void detach_TournamentMatches1(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team1 = null;
-		}
-		
-		private void attach_TournamentMatches2(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team2 = this;
-		}
-		
-		private void detach_TournamentMatches2(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team2 = null;
-		}
-		
-		private void attach_TournamentMatches3(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team3 = this;
-		}
-		
-		private void detach_TournamentMatches3(TournamentMatch entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team3 = null;
-		}
-		
-		private void attach_TournamentTeams(TournamentTeam entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = this;
-		}
-		
-		private void detach_TournamentTeams(TournamentTeam entity)
-		{
-			this.SendPropertyChanging();
-			entity.Team = null;
+			entity.User = null;
 		}
 		
 		private void attach_Tournaments(Tournament entity)
 		{
 			this.SendPropertyChanging();
-			entity.Team = this;
+			entity.User = this;
 		}
 		
 		private void detach_Tournaments(Tournament entity)
 		{
 			this.SendPropertyChanging();
-			entity.Team = null;
+			entity.User = null;
 		}
 	}
 }

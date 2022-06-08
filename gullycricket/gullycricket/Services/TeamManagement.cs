@@ -56,7 +56,11 @@ namespace gullycricket.Services
                         oTeam.RegisteredOnString = oTeam.RegisteredOn.ToString(ConfigurationManager.AppSettings["DateFormat"]);
                         oTeam.UserId = eTeam.UserId;
                         oTeam.NumberOfPlayers = eTeam.TeamPlayers.Count;
-                        
+                        var eMatches = eDataBase.TournamentMatches.Where(eMData => eMData.Team1Id == eTeam.Id || eMData.Team2Id == eTeam.Id).ToList();
+                        oTeam.NumberOfMatchesPlayed = eMatches.Count;
+                        oTeam.NumberOfMatchesWon = eMatches.Where(eMData => eMData.WinnerTeamId == eTeam.Id).Count();
+                        oTeam.NumberOfMatchesLost = oTeam.NumberOfMatchesPlayed - oTeam.NumberOfMatchesWon;
+                        oTeam.NumberOfTournaments = eTeam.Tournaments.Count;
                         oTeams.Add(oTeam);
                     }
                 }
@@ -96,6 +100,35 @@ namespace gullycricket.Services
                 using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
                 {
                     var eTeams = eDataBase.Teams.ToList();
+                    gList.DataSource = eTeams;
+                    gList.DataTextField = "TeamName";
+                    gList.DataValueField = "Id";
+                    gList.DataBind();
+                    gList.Items.Insert(0, new ListItem("Select Team", "0"));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        public void BindTeamsByTournamentId(DropDownList gList, int tournamentId)
+        {
+            try
+            {
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var record = eDataBase.TournamentTeams.Where(eTData => eTData.TournamentId == tournamentId).ToList();
+                    var eTeams = new List<Team>();
+                    foreach (var eTeam in record)
+                    {
+                        eTeams.Add(new Team()
+                        {
+                            Id = eTeam.Team.Id,
+                            TeamName = eTeam.Team.TeamName
+                        });
+                    }
                     gList.DataSource = eTeams;
                     gList.DataTextField = "TeamName";
                     gList.DataValueField = "Id";

@@ -15,5 +15,6 @@ namespace gullycricket.ModalClasses
         public int WinnerId { get; set; }
         public string WinnerTeamName { get; set; }
         public int NumberOfTeams { get; set; }
+        public int NumberOfMatches { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace gullycricket
 {
 
 
-    public partial class AddTournamentTeam
+    public partial class ViewTournamentTeams
     {
 
         /// <summary>
@@ -22,24 +22,6 @@ namespace gullycricket
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::gullycricket.UserControl.MessageBox MessageBox;
-
-        /// <summary>
-        /// TeamList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TeamList;
-
-        /// <summary>
-        /// btnSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
 
         /// <summary>
         /// TeamRepeater control.

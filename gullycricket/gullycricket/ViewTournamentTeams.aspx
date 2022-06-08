@@ -1,15 +1,20 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Global.Master" AutoEventWireup="true" CodeBehind="ViewAllTeams.aspx.cs" Inherits="gullycricket.ViewAllTeams" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Global.Master" AutoEventWireup="true" CodeBehind="ViewTournamentTeams.aspx.cs" Inherits="gullycricket.ViewTournamentTeams" %>
+
 <%@ Register Src="~/UserControl/MessageBox.ascx" TagPrefix="uc1" TagName="MessageBox" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="headPlaceholder" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-    <main id="main" class="main">
+     <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>All Teams</h1>
+    
+
+        <div class="pagetitle">
+      <h1>Tournament Teams</h1>
       
     </div><!-- End Page Title -->
-    <section class="section">
+
+        <section class="section">
       <div class="row">
         
 
@@ -23,13 +28,10 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Team Name</th>
-                    <th scope="col">Created On</th>
                       <th scope="col" class="text-center">No. of Players</th>
-                        <th scope="col" class="text-center">Tournaments Partcipated</th>
                       <th scope="col" class="text-center">Matches Played</th>
                       <th scope="col" class="text-center">Matches Won</th>
                       <th scope="col" class="text-center">Matches Lost</th>
-                    
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -39,15 +41,12 @@
                              <tr>
                     <th scope="row"><%# Container.ItemIndex + 1 %></th>
                     <td><%# Eval("TeamName") %></td>
-                    <td><%# Eval("RegisteredOnString") %></td>
                     <td class="text-center"><%# Eval("NumberOfPlayers") %></td>
-                                  <td class="text-center"><%# Eval("NumberOfTournaments") %></td>
-                                  <td class="text-center"><%# Eval("NumberOfMatchesPlayed") %></td>
+                    <td class="text-center"><%# Eval("NumberOfMatchesPlayed") %></td>
                                   <td class="text-center"><%# Eval("NumberOfMatchesWon") %></td>
                                   <td class="text-center"><%# Eval("NumberOfMatchesLost") %></td>
-                    
                                  <td>
-                                     <asp:LinkButton ID="btnDelete" runat="server" OnClientClick="if (!confirm('Are you sure you want delete?')) return false;" OnClick="btnDelete_Click" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-danger actionBtn btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></asp:LinkButton>
+                                     <asp:LinkButton ID="btnDelete" runat="server" OnClientClick="if (!confirm('Are you sure you want to remove this team from tournament?')) return false;" OnClick="btnDelete_Click" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-danger actionBtn btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></asp:LinkButton>
                                  </td>
                   </tr>
                         </ItemTemplate>
@@ -57,6 +56,15 @@
                 </tbody>
               </table>
 
+                  <div class="row g-3">
+                
+               
+               
+              
+                <div class="text-center">
+                  <a href="ViewAllTournaments.aspx" class="btn btn-secondary">Back</a>
+                </div>
+              </div><!-- Vertical Form -->
             </div>
           </div>
 

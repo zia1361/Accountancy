@@ -1,4 +1,5 @@
-﻿using gullycricket.Model_Classes;
+﻿using gullycricket.ModalClasses;
+using gullycricket.Model_Classes;
 using gullycricket.Services;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace gullycricket
 {
-    public partial class AddTournamentTeam : System.Web.UI.Page
+    public partial class TournamentMatches : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,7 +30,8 @@ namespace gullycricket
                 }
                 try
                 {
-                    new TeamManagement().BindTeams(TeamList);
+                    new TeamManagement().BindTeamsByTournamentId(TeamList, tournamentId);
+                    new TeamManagement().BindTeamsByTournamentId(TeamList2, tournamentId);
                 }
                 catch (Exception ex)
                 {
@@ -39,9 +41,6 @@ namespace gullycricket
                 }
                 BindData();
             }
-            
-
-            
         }
         private void BindData()
         {
@@ -49,8 +48,12 @@ namespace gullycricket
             {
                 int tournamentId = 0;
                 int.TryParse(Request.QueryString["tId"], out tournamentId);
-                TeamRepeater.DataSource = new TournamentManagement().GetTeamsByTournamentId(tournamentId);
-                TeamRepeater.DataBind();
+                if (tournamentId == 0)
+                {
+                    Response.Redirect("pages-error-404.html");
+                }
+                MatchRepeater.DataSource = new MatchManagement().GetMatchesByTournamentId(tournamentId);
+                MatchRepeater.DataBind();
             }
             catch (Exception ex)
             {
@@ -69,18 +72,46 @@ namespace gullycricket
                     Response.Redirect("pages-error-404.html");
                 }
 
-                int teamId = 0;
-                int.TryParse(TeamList.SelectedValue, out teamId);
-                if (teamId == 0)
+                int team1Id = 0;
+                int.TryParse(TeamList.SelectedValue, out team1Id);
+                if(team1Id == 0)
                 {
-                    MessageBox.ErrorMessage("Kindly select team");
+                    MessageBox.ErrorMessage("Kindly select team 1");
                     return;
                 }
 
-                new TournamentManagement().AddTournamentTeam(tournamentId, teamId);
-                MessageBox.SuccessMessage("Team registered for this tournament");
+                int team2Id = 0;
+                int.TryParse(TeamList2.SelectedValue, out team2Id);
+                if (team2Id == 0)
+                {
+                    MessageBox.ErrorMessage("Kindly select team 2");
+                    return;
+                }
+
+                if(team1Id == team2Id)
+                {
+                    MessageBox.ErrorMessage("Kindly select different opponents");
+                    return;
+                }
+
+                string startingDateValue = startDate.Value.Trim();
+                if(startingDateValue == "")
+                {
+                    MessageBox.ErrorMessage("Kindly select starting date");
+                    return;
+                }
+                MatchInfo oMatch = new MatchInfo();
+                oMatch.Team1Id = team1Id;
+                oMatch.Team2Id = team2Id;
+                oMatch.StartingDate = Convert.ToDateTime(startingDateValue);
+                oMatch.TournamentId = tournamentId;
+                new MatchManagement().AddMatch(oMatch);
                 TeamList.SelectedValue = "0";
+                TeamList2.SelectedValue = "0";
+                startDate.Value = "";
+                MessageBox.SuccessMessage("New Match added");
                 BindData();
+
             }
             catch (Exception ex)
             {
@@ -93,14 +124,14 @@ namespace gullycricket
         {
             try
             {
-                int teamId = 0;
-                int.TryParse(((LinkButton)sender).CommandArgument, out teamId);
-                if (teamId == 0)
+                int matchId = 0;
+                int.TryParse(((LinkButton)sender).CommandArgument, out matchId);
+                if(matchId == 0)
                 {
                     throw new Exception("Invalid or no ID found");
                 }
-                new TournamentManagement().DeleteTournamentTeam(teamId);
-                MessageBox.SuccessMessage("Team deleted successfully");
+                new MatchManagement().DeleteTournamentMatch(matchId);
+                MessageBox.SuccessMessage("Match deleted");
                 BindData();
             }
             catch (Exception ex)
