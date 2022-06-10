@@ -13,8 +13,7 @@ namespace gullycricket
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
-             new UserManagment().BindUserType(UserTypeList);
+            
             MessageBox.ClearMessage();
         }
 
@@ -22,11 +21,6 @@ namespace gullycricket
         {
             try
             {
-                if (UserTypeList.SelectedIndex == 0)
-                {
-                    MessageBox.ErrorMessage("Kindly select user type");
-                    return;
-                }
                 string userName = username.Value.Trim();
                 if (string.IsNullOrEmpty(userName))
                 {
@@ -57,10 +51,8 @@ namespace gullycricket
                 oInfo.Email = userEmail_;
                 oInfo.LoginId = userLoginId;
                 oInfo.Password = userPassword;
-                oInfo.UserTypeId = Convert.ToInt32(UserTypeList.SelectedValue);
                 new UserManagment().SignUpUser(oInfo);
                 MessageBox.SuccessMessage("User successfully registered but you are in a pending state");
-                UserTypeList.SelectedValue = "0";
                 username.Value = "";
                 userEmail.Value = "";
                 loginId.Value = "";

@@ -18,13 +18,11 @@ namespace gullycricket.UserControl
                 if(oUser != null)
                 {
                     userName.InnerText = oUser.Name != null && oUser.Name != "" ? oUser.Name : "User Name";
-                    userHeadline.InnerText = oUser.PlayerTypeName != null && oUser.PlayerTypeName != "" ? oUser.PlayerTypeName : oUser.UserTypeName;
-                    profileImage.Src = oUser.ProfileImageURL != null && oUser.ProfileImageURL != "" ? oUser.ProfileImageURL : "../assets/assets/img/profile-img.jpg";
+                    profileImage.Src = oUser.ImageURL != null && oUser.ImageURL != "" ? oUser.ImageURL : "../assets/assets/img/profile-img.jpg";
                 }
                 else
                 {
                     userName.InnerText = "User Name";
-                    userHeadline.InnerText = "Headline";
                     profileImage.Src = "../assets/assets/img/profile-img.jpg";
                 }
                 

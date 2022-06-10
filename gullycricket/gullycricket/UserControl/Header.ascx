@@ -7,7 +7,7 @@
          <i class="bi bi-list toggle-sidebar-btn"></i>
       <a href="Dashboard.aspx" class="logo d-flex align-items-center">
         <img src="../assets/assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Gully Cricket</span>
+        <span class="d-none d-lg-block">Accountancy</span>
       </a>
      
     </div><!-- End Logo -->
@@ -29,10 +29,7 @@
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <%--<h6 ></h6>--%>
-              <span runat="server" id="userHeadline"></span>
-            </li>
+            
             <li>
               <hr class="dropdown-divider">
             </li>

@@ -109,7 +109,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AddTournamentTeam.aspx" />
     <Content Include="assets\assets\css\style.css" />
     <Content Include="assets\assets\img\apple-touch-icon.png" />
     <Content Include="assets\assets\img\card.jpg" />
@@ -2244,8 +2243,10 @@
     <Content Include="assets\fonts\icomoon\Read Me.txt" />
     <Content Include="assets\fonts\icomoon\style.css" />
     <Content Include="assets\images\bg.jpeg" />
+    <Content Include="assets\images\bg.jpg" />
     <Content Include="assets\images\bg_1.jpg" />
     <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\GeneralJournal.js" />
     <Content Include="assets\js\jquery-3.3.1.min.js" />
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\owl.carousel.min.js" />
@@ -2255,11 +2256,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="CreateTeam.aspx" />
-    <Content Include="CreateTournament.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="GeneralJournal.aspx" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -2445,44 +2445,19 @@
     <Content Include="SignIn.aspx" />
     <Content Include="SignUp.aspx" />
     <Content Include="Site.Master" />
-    <Content Include="TournamentMatches.aspx" />
     <Content Include="UserControl\Header.ascx" />
     <Content Include="UserControl\MessageBox.ascx" />
     <Content Include="UserControl\Sidebar.ascx" />
-    <Content Include="ViewAllTeams.aspx" />
-    <Content Include="ViewAllTournaments.aspx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="ViewTournamentTeams.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddTournamentTeam.aspx.cs">
-      <DependentUpon>AddTournamentTeam.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AddTournamentTeam.aspx.designer.cs">
-      <DependentUpon>AddTournamentTeam.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Backbone\Constants.cs" />
     <Compile Include="Backbone\SessionService.cs" />
-    <Compile Include="CreateTeam.aspx.cs">
-      <DependentUpon>CreateTeam.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CreateTeam.aspx.designer.cs">
-      <DependentUpon>CreateTeam.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CreateTournament.aspx.cs">
-      <DependentUpon>CreateTournament.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CreateTournament.aspx.designer.cs">
-      <DependentUpon>CreateTournament.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2494,6 +2469,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralJournal.aspx.cs">
+      <DependentUpon>GeneralJournal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GeneralJournal.aspx.designer.cs">
+      <DependentUpon>GeneralJournal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2513,9 +2495,8 @@
       <DependentUpon>Global.Master</DependentUpon>
     </Compile>
     <Compile Include="ModalClasses\AuthenticationModel.cs" />
-    <Compile Include="ModalClasses\MatchInfo.cs" />
-    <Compile Include="ModalClasses\TeamInfo.cs" />
-    <Compile Include="ModalClasses\TournamentInfo.cs" />
+    <Compile Include="ModalClasses\DebitCreditInfo.cs" />
+    <Compile Include="ModalClasses\GeneralJournalInfo.cs" />
     <Compile Include="ModalClasses\UserInfo.cs" />
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -2525,9 +2506,7 @@
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\MatchManagement.cs" />
-    <Compile Include="Services\TeamManagement.cs" />
-    <Compile Include="Services\TournamentManagement.cs" />
+    <Compile Include="Services\GeneralJournalManagement.cs" />
     <Compile Include="Services\UserManagment.cs" />
     <Compile Include="SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
@@ -2557,13 +2536,6 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="TournamentMatches.aspx.cs">
-      <DependentUpon>TournamentMatches.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TournamentMatches.aspx.designer.cs">
-      <DependentUpon>TournamentMatches.aspx</DependentUpon>
-    </Compile>
     <Compile Include="UserControl\Header.ascx.cs">
       <DependentUpon>Header.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2585,33 +2557,12 @@
     <Compile Include="UserControl\Sidebar.ascx.designer.cs">
       <DependentUpon>Sidebar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewAllTeams.aspx.cs">
-      <DependentUpon>ViewAllTeams.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewAllTeams.aspx.designer.cs">
-      <DependentUpon>ViewAllTeams.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewAllTournaments.aspx.cs">
-      <DependentUpon>ViewAllTournaments.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewAllTournaments.aspx.designer.cs">
-      <DependentUpon>ViewAllTournaments.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewTournamentTeams.aspx.cs">
-      <DependentUpon>ViewTournamentTeams.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewTournamentTeams.aspx.designer.cs">
-      <DependentUpon>ViewTournamentTeams.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -38,16 +38,13 @@ namespace gullycricket
             try
             {
                 var oUser = SessionService.GetCurrentUser().oUser;
-                userImageView.Src = oUser.ProfileImageURL;
+                userImageView.Src = oUser.ImageURL;
                 userNameView.InnerText = oUser.Name;
-                headlineView.InnerText = oUser.UserTypeName;
                 userNameOverView.InnerText = oUser.Name;
-                userTypeOverview.InnerText = oUser.UserTypeName;
                 emailOverView.InnerText = oUser.Email != null & oUser.Email != "" ? oUser.Email : "N/A";
                 loginIdOverview.InnerText = oUser.LoginId;
                 registerationDateVoverview.InnerText = oUser.RegisteredOnDateString;
-                playerTypeName.InnerText = oUser.PlayerTypeName != null & oUser.PlayerTypeName != "" ? oUser.PlayerTypeName : "N/A";
-                profileImageUpload.Src = oUser.ProfileImageURL;
+                profileImageUpload.Src = oUser.ImageURL;
                 userNameControl.Value = oUser.Name;
                 userEmailcontrol.Value = oUser.Email != null & oUser.Email != "" ? oUser.Email : "";
                 loginIdControl.Value = oUser.LoginId;
@@ -96,7 +93,7 @@ namespace gullycricket
                         return;
                     }
                     profileImageControl.SaveAs(Server.MapPath("/PROFILEIMAGES/" + fileName));
-                    oInfo.ProfileImageURL = fileName;
+                    oInfo.ImageURL = fileName;
 
                 }
                 

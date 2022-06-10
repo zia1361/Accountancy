@@ -42,15 +42,6 @@ namespace gullycricket
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl userNameView;
 
         /// <summary>
-        /// headlineView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl headlineView;
-
-        /// <summary>
         /// userNameOverView control.
         /// </summary>
         /// <remarks>
@@ -58,15 +49,6 @@ namespace gullycricket
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl userNameOverView;
-
-        /// <summary>
-        /// userTypeOverview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl userTypeOverview;
 
         /// <summary>
         /// emailOverView control.
@@ -94,15 +76,6 @@ namespace gullycricket
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl registerationDateVoverview;
-
-        /// <summary>
-        /// playerTypeName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl playerTypeName;
 
         /// <summary>
         /// profileImageUpload control.

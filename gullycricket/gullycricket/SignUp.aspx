@@ -30,23 +30,18 @@
 <body>
     <form id="form1" runat="server">
          <div class="d-lg-flex half">
-    <div class="bg order-1 order-md-2" style="background-image: url('assets/images/bg.jpeg');"></div>
+    <div class="bg order-1 order-md-2" style="background-image: url('assets/images/bg.jpg');"></div>
     <div class="contents order-2 order-md-1">
 
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
-            <h3>Register to <strong>Gully Cricket</strong></h3>
+            <h3>Register to <strong>Accountancy</strong></h3>
             
               <uc1:MessageBox runat="server" ID="MessageBox" />
-                <div class="form-group first">
-                    <label for="userType">User Type</label>
-                    
-                    <asp:DropDownList ID="UserTypeList" class="form-control" runat="server"></asp:DropDownList>
-                  </div>
               <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" runat="server" placeholder="john" id="username"/>
+                <label for="username">Company Name</label>
+                <input type="text" class="form-control" runat="server" placeholder="Airlift" id="username"/>
               </div>
               <div class="form-group">
                 <label for="userEmail">Email</label>

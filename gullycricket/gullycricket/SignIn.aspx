@@ -38,14 +38,14 @@
   
 
   <div class="d-lg-flex half">
-    <div class="bg order-1 order-md-2" style="background-image: url('assets/images/bg.jpeg');"></div>
+    <div class="bg order-1 order-md-2" style="background-image: url('assets/images/bg.jpg');"></div>
     <div class="contents order-2 order-md-1">
 
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
-            <h3>Login to <strong>Gully Cricket</strong></h3>
-            <p class="mb-4">Cricket khelo aur dhoom machao.</p>
+            <h3>Login to <strong>Accountancy</strong></h3>
+            <p class="mb-4">Your one stop Finance Management</p>
              
             <form id="Form1" runat="server">
                 <uc1:MessageBox runat="server" ID="MessageBox" />

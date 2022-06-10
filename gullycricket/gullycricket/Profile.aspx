@@ -24,8 +24,7 @@
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
               <img src="../assets/assets/img/profile-img.jpg" runat="server" id="userImageView" alt="Profile" class="rounded-circle profile-img">
-              <h2 runat="server" id="userNameView">User Name</h2>
-              <h3 runat="server" id="headlineView">Headline</h3>
+              <h2 runat="server" id="userNameView">Company Name</h2>
               
             </div>
           </div>
@@ -61,14 +60,11 @@
                   <h5 class="card-title">Profile Details</h5>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    <div class="col-lg-3 col-md-4 label ">Company Name</div>
                     <div class="col-lg-9 col-md-8" runat="server" id="userNameOverView">N/A</div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">User Type</div>
-                    <div class="col-lg-9 col-md-8" runat="server" id="userTypeOverview">N/A</div>
-                  </div>
+                  
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
@@ -85,10 +81,7 @@
                     <div class="col-lg-9 col-md-8" runat="server" id="registerationDateVoverview">N/A</div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Player Type</div>
-                    <div class="col-lg-9 col-md-8" runat="server" id="playerTypeName">N/A</div>
-                  </div>
+                 
 
                   
 
@@ -112,7 +105,7 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Company Name</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="fullName" type="text" class="form-control" id="userNameControl" runat="server">
                       </div>

@@ -11,26 +11,6 @@ namespace gullycricket.Services
 {
     public class UserManagment
     {
-        public void BindUserType(DropDownList oList)
-        {
-            try
-            {
-                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
-                {
-                    var eUserTypes = eDataBase.UserTypes.ToList();
-                    oList.DataSource = eUserTypes;
-                    oList.DataTextField = "UserTypeName";
-                    oList.DataValueField = "Id";
-                    oList.DataBind();
-                    oList.Items.Insert(0, new ListItem("Select User type", "0"));
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
 
         public void SignUpUser(UserInfo oInfo)
         {
@@ -55,16 +35,13 @@ namespace gullycricket.Services
 
 
                     User eUser = new User();
-                    eUser.Name = oInfo.Name;
+                    eUser.UserName = oInfo.Name;
                     eUser.Email = oInfo.Email;
                     eUser.LoginId = oInfo.LoginId;
                     eUser.Password = oInfo.Password;
-                    eUser.UserTypeId = oInfo.UserTypeId;
                     eUser.IsVerified = false;
                     eUser.RegisteredOn = DateTime.Now;
                     eDataBase.Users.InsertOnSubmit(eUser);
-                    eDataBase.SubmitChanges();
-                    eUser.PlayerId = DateTime.Now.Year + "-" + eUser.Id;
                     eDataBase.SubmitChanges();
                 }
             }
@@ -94,34 +71,16 @@ namespace gullycricket.Services
                         throw new Exception("Your account is not verified yet!");
                     }
                     oUser.Id = eUser.Id;
-                    oUser.Name = eUser.Name;
+                    oUser.Name = eUser.UserName;
                     oUser.Email = eUser.Email;
-                    oUser.PlayerId = eUser.PlayerId;
                     oUser.IsVerified = eUser.IsVerified;
                     oUser.Password = eUser.Password;
                     oUser.LoginId = eUser.LoginId;
-                    oUser.ProfileImageURL = eUser.ProfileImageURL != null && eUser.ProfileImageURL != "" ? 
-                        (ConfigurationManager.AppSettings["BaseURL"] + "PROFILEIMAGES/" + eUser.ProfileImageURL) : "../assets/assets/img/profile-img.jpg";
-                    oUser.UserTypeId = eUser.UserTypeId;
-                    oUser.UserTypeName = eUser.UserType.UserTypeName;
-                    if (eUser.PlayerTypeId.HasValue)
-                    {
-                        oUser.PlayerTypeId = eUser.PlayerTypeId.Value;
-                        oUser.PlayerTypeName = eUser.PlayerType.PlayerTypeName;
-                    }
+                    oUser.ImageURL = eUser.ImageURL != null && eUser.ImageURL != "" ? 
+                        (ConfigurationManager.AppSettings["BaseURL"] + "PROFILEIMAGES/" + eUser.ImageURL) : "../assets/assets/img/profile-img.jpg";
                     oUser.RegisteredOnDate = eUser.RegisteredOn;
                     oUser.RegisteredOnDateString = eUser.RegisteredOn.ToString(ConfigurationManager.AppSettings["DateFormat"]);
-
-                        
-
                     authenticationModel.oUser = oUser;
-
-                    //assign user type
-                    if (eUser.UserTypeId == (int)Constants.UserType.Player)
-                        authenticationModel.AccountType = Constants.UserType.Player;
-                    if (eUser.UserTypeId == (int)Constants.UserType.Organizer)
-                        authenticationModel.AccountType = Constants.UserType.Organizer;
-
                     authenticationModel.Authenticated = eUser != null;
                     SessionService.Save(SessionService.Keys.AuthenticationInfo, authenticationModel);
 
@@ -154,21 +113,13 @@ namespace gullycricket.Services
                         throw new Exception("Your account is not verified yet!");
                     }
                     oUser.Id = userId;
-                    oUser.Name = eUser.Name;
+                    oUser.Name = eUser.UserName;
                     oUser.Email = eUser.Email;
-                    oUser.PlayerId = eUser.PlayerId;
                     oUser.IsVerified = eUser.IsVerified;
                     oUser.Password = eUser.Password;
                     oUser.LoginId = eUser.LoginId;
-                    oUser.ProfileImageURL = eUser.ProfileImageURL != null && eUser.ProfileImageURL != "" ?
-                        (ConfigurationManager.AppSettings["BaseURL"] + "PROFILEIMAGES/" + eUser.ProfileImageURL) : "../assets/assets/img/profile-img.jpg";
-                    oUser.UserTypeId = eUser.UserTypeId;
-                    oUser.UserTypeName = eUser.UserType.UserTypeName;
-                    if (eUser.PlayerTypeId.HasValue)
-                    {
-                        oUser.PlayerTypeId = eUser.PlayerTypeId.Value;
-                        oUser.PlayerTypeName = eUser.PlayerType.PlayerTypeName;
-                    }
+                    oUser.ImageURL = eUser.ImageURL != null && eUser.ImageURL != "" ?
+                        (ConfigurationManager.AppSettings["BaseURL"] + "PROFILEIMAGES/" + eUser.ImageURL) : "../assets/assets/img/profile-img.jpg";
                     oUser.RegisteredOnDate = eUser.RegisteredOn;
                     oUser.RegisteredOnDateString = eUser.RegisteredOn.ToString(ConfigurationManager.AppSettings["DateFormat"]);
                 }
@@ -213,40 +164,28 @@ namespace gullycricket.Services
                         }
                     }
 
-                    eUser.Name = oUser.Name;
+                    eUser.UserName = oUser.Name;
                     eUser.Email = oUser.Email;
                     eUser.LoginId = oUser.LoginId;
-                    if(oUser.ProfileImageURL != null && oUser.ProfileImageURL != "")
+                    if(oUser.ImageURL != null && oUser.ImageURL != "")
                     {
-                        eUser.ProfileImageURL = oUser.ProfileImageURL;
-                        oUser.ProfileImageURL = ConfigurationManager.AppSettings["BaseURL"] + "PROFILEIMAGES/" + oUser.ProfileImageURL;
+                        eUser.ImageURL = oUser.ImageURL;
+                        oUser.ImageURL = ConfigurationManager.AppSettings["BaseURL"] + "PROFILEIMAGES/" + oUser.ImageURL;
                     }
                     else
                     {
-                        oUser.ProfileImageURL =  "../assets/assets/img/profile-img.jpg";
+                        oUser.ImageURL =  "../assets/assets/img/profile-img.jpg";
                     }
                     eDataBase.SubmitChanges();
                     oUser.Id = eUser.Id;
-                    oUser.PlayerId = eUser.PlayerId;
                     oUser.IsVerified = eUser.IsVerified;
                     oUser.Password = eUser.Password;
-                    oUser.UserTypeId = eUser.UserTypeId;
-                    oUser.UserTypeName = eUser.UserType.UserTypeName;
-                    if (eUser.PlayerTypeId.HasValue)
-                    {
-                        oUser.PlayerTypeId = eUser.PlayerTypeId.Value;
-                        oUser.PlayerTypeName = eUser.PlayerType.PlayerTypeName;
-                    }
                     oUser.RegisteredOnDate = eUser.RegisteredOn;
                     oUser.RegisteredOnDateString = eUser.RegisteredOn.ToString(ConfigurationManager.AppSettings["DateFormat"]);
 
                     authenticationModel.oUser = oUser;
 
-                    //assign user type
-                    if (eUser.UserTypeId == (int)Constants.UserType.Player)
-                        authenticationModel.AccountType = Constants.UserType.Player;
-                    if (eUser.UserTypeId == (int)Constants.UserType.Organizer)
-                        authenticationModel.AccountType = Constants.UserType.Organizer;
+                    
 
                     authenticationModel.Authenticated = eUser != null;
                     SessionService.Save(SessionService.Keys.AuthenticationInfo, authenticationModel);
