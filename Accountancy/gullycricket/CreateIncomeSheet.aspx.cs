@@ -51,7 +51,12 @@ namespace gullycricket
                                         .Sum(x => x.Amount) - oSheet.oRevenueTransactions.Where(x => x.TransactionTypeId == (int)DebitCreditType.Credit)
                                         .Sum(x => x.Amount));
                 revenueSumValue = Math.Abs(revenueSumValue);
-                
+
+                //if (expenseSumValue == 0 || revenueSumValue == 0)
+                //{
+                //    MessageBox.ErrorMessage("No Record found");
+                //}
+
                 ExpenseRepeater.DataSource = oSheet.oExpenseTransactions;
                 ExpenseRepeater.DataBind();
                 expenseSum.InnerText = expenseSumValue.ToString();
@@ -62,10 +67,7 @@ namespace gullycricket
                 companyName.InnerText = SessionService.GetCurrentUser().oUser.Name;
                 generatedDate.InnerText = selectedDateValue.ToString("MMMM yyyy");
 
-                if (expenseSumValue == 0 || revenueSumValue == 0)
-                {
-                    MessageBox.ErrorMessage("No Record found");
-                }
+               
 
             }
             catch (Exception ex)

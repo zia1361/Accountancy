@@ -1,5 +1,6 @@
 ﻿using gullycricket.DB;
 using gullycricket.ModalClasses;
+using gullycricket.Model_Classes;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -211,6 +212,185 @@ namespace gullycricket.Services
                 double netIncomeValue = Math.Abs(new SheetsManagement().GetNetIncomeByUserId(userId, date));
                 ownersEquity = (capitalSumValue - netIncomeValue);
                 return ownersEquity;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<TAccountInfo> GetTAccountByElementTypeId(int elementTypeId, int userId)
+        {
+            try
+            {
+                List<TAccountInfo> oTAccountEntries = new List<TAccountInfo>();
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var eEntries = eDataBase.GeneralJournalEntries.Where(eGData => eGData.UserId == userId).ToList();
+                    foreach (var eEntry in eEntries)
+                    {
+                        var eJournalEntries = eEntry.JournalEntries.Where(oJData => oJData.ElementTypeId == elementTypeId).ToList();
+                        foreach (var eJEnry in eJournalEntries)
+                        {
+                            oTAccountEntries.Add(new TAccountInfo()
+                            {
+                                Id = eJEnry.Id,
+                                TransactionDate = eEntry.TransactionDate,
+                                TransactionDateString = eEntry.TransactionDate.ToString(ConfigurationManager.AppSettings["DateFormat"]),
+                                DebitValue = eJEnry.TransactionTypeId == (int)Constants.DebitCreditType.Debit ? eJEnry.Amount : 0,
+                                CreditValue = eJEnry.TransactionTypeId == (int)Constants.DebitCreditType.Credit ? eJEnry.Amount : 0,
+                                InnerHTML = @"<td scope=""row"">[:Debit]</td><td scope=""row"">[:Credit]</td>".Replace("[:Debit]",
+                                eJEnry.TransactionTypeId == (int)Constants.DebitCreditType.Debit ? eJEnry.Amount.ToString() : "").Replace("[:Credit]",
+                                eJEnry.TransactionTypeId == (int)Constants.DebitCreditType.Credit ? eJEnry.Amount.ToString() : "")
+                            });
+                        }
+                    }
+
+                }
+                return oTAccountEntries;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<TAccountInfo> GetTrialBalanceByUserId(int userId)
+        {
+            try
+            {
+                List<TAccountInfo> oTAccountEntries = new List<TAccountInfo>();
+                using (DataClasses1DataContext eDataBase = new DataClasses1DataContext())
+                {
+                    var eEntries = eDataBase.GeneralJournalEntries.Where(eGData => eGData.UserId == userId).ToList();
+                    var oAssets = new List<SheetInfo>();
+                    var oExpenses = new List<SheetInfo>();
+                    var oLiabilities = new List<SheetInfo>();
+                    var oRevenues = new List<SheetInfo>();
+                    var oCapitals = new List<SheetInfo>();
+                    foreach (var eEntry in eEntries)
+                    {
+                        var eJournalEntries = eEntry.JournalEntries.ToList();
+                        foreach (var eJEnry in eJournalEntries)
+                        {
+                            switch (eJEnry.ElementTypeId)
+                            {
+                                case (int)Constants.ElementType.Asset:
+                                    oAssets.Add(new SheetInfo() 
+                                    { 
+                                        Id = eJEnry.Id,
+                                        Amount = eJEnry.Amount,
+                                        TransactionTypeId = eJEnry.TransactionTypeId
+                                    });
+                                    break;
+                                case (int)Constants.ElementType.Expense:
+                                    oExpenses.Add(new SheetInfo()
+                                    {
+                                        Id = eJEnry.Id,
+                                        Amount = eJEnry.Amount,
+                                        TransactionTypeId = eJEnry.TransactionTypeId
+                                    });
+                                    break;
+                                case (int)Constants.ElementType.Liability:
+                                    oLiabilities.Add(new SheetInfo()
+                                    {
+                                        Id = eJEnry.Id,
+                                        Amount = eJEnry.Amount,
+                                        TransactionTypeId = eJEnry.TransactionTypeId
+                                    });
+                                    break;
+                                case (int)Constants.ElementType.Revenue:
+                                    oRevenues.Add(new SheetInfo()
+                                    {
+                                        Id = eJEnry.Id,
+                                        Amount = eJEnry.Amount,
+                                        TransactionTypeId = eJEnry.TransactionTypeId
+                                    });
+                                    break;
+                                case (int)Constants.ElementType.Capital:
+                                    oCapitals.Add(new SheetInfo()
+                                    {
+                                        Id = eJEnry.Id,
+                                        Amount = eJEnry.Amount,
+                                        TransactionTypeId = eJEnry.TransactionTypeId
+                                    });
+                                    break;
+                                default:
+                                    break;
+                            }
+                            
+                        }
+                    }
+                    double debitSum = 0;
+                    double creditSum = 0;
+
+                    #region Asset
+                    debitSum = oAssets.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Debit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    creditSum = oAssets.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Credit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    oTAccountEntries.Add(new TAccountInfo()
+                    {
+                        Id = 0,
+                        InnerHTML = @"<td scope=""row"">1</td><td scope=""row"">Asset</td><td scope=""row"">[:Debit]</td><td scope=""row""></td>".Replace("[:Debit]",
+                                Math.Abs(debitSum - creditSum).ToString())
+                    });
+                    #endregion
+
+                    #region Expense
+                    debitSum = oExpenses.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Debit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    creditSum = oExpenses.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Credit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    oTAccountEntries.Add(new TAccountInfo()
+                    {
+                        Id = 0,
+                        InnerHTML = @"<td scope=""row"">2</td><td scope=""row"">Expense</td><td scope=""row"">[:Debit]</td><td scope=""row""></td>".Replace("[:Debit]",
+                                Math.Abs(debitSum - creditSum).ToString())
+                    });
+                    #endregion
+
+                    #region Liability
+                    debitSum = oLiabilities.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Debit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    creditSum = oLiabilities.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Credit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    oTAccountEntries.Add(new TAccountInfo()
+                    {
+                        Id = 0,
+                        InnerHTML = @"<td scope=""row"">3</td><td scope=""row"">Liability</td><td scope=""row""></td><td scope=""row"">[:Credit]</td>".Replace("[:Credit]",
+                                Math.Abs(debitSum - creditSum).ToString())
+                    });
+                    #endregion
+
+                    #region Revenue
+                    debitSum = oRevenues.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Debit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    creditSum = oRevenues.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Credit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    oTAccountEntries.Add(new TAccountInfo()
+                    {
+                        Id = 0,
+                        InnerHTML = @"<td scope=""row"">4</td><td scope=""row"">Revenue</td><td scope=""row""></td><td scope=""row"">[:Credit]</td>".Replace("[:Credit]",
+                                Math.Abs(debitSum - creditSum).ToString())
+                    });
+                    #endregion
+
+                    #region Capital
+                    debitSum = oCapitals.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Debit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    creditSum = oCapitals.Where(oAData => oAData.TransactionTypeId == (int)Constants.DebitCreditType.Credit).ToList()
+                                .Sum(oASum => oASum.Amount);
+                    oTAccountEntries.Add(new TAccountInfo()
+                    {
+                        Id = 0,
+                        InnerHTML = @"<td scope=""row"">5</td><td scope=""row"">Capital</td><td scope=""row""></td><td scope=""row"">[:Credit]</td>".Replace("[:Credit]",
+                                Math.Abs(debitSum - creditSum).ToString())
+                    });
+                    #endregion
+
+                }
+                return oTAccountEntries;
             }
             catch (Exception ex)
             {

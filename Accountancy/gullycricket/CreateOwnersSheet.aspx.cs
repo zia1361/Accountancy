@@ -55,10 +55,11 @@ namespace gullycricket
             endingBalance.InnerText = (capitalSumValue - netIncomeValue).ToString();
             companyName.InnerText = SessionService.GetCurrentUser().oUser.Name;
             generatedDate.InnerText = selectedDateValue.ToString("MMMM yyyy");
-            if(netIncomeValue == 0 && oCapitalTransactions.Count <= 0)
-            {
-                MessageBox.ErrorMessage("No record found");
-            }
+
+            //if (netIncomeValue == 0 && oCapitalTransactions.Count <= 0)
+            //{
+            //    MessageBox.ErrorMessage("No record found");
+            //}
 
         }
     }

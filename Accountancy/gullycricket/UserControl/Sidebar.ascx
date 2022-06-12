@@ -6,11 +6,25 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
        <li class="nav-item">
-        <a class="nav-link"  href="GeneralJournal">
+        <a class="nav-link"  href="GeneralJournal.aspx">
           <i class="bi bi-diagram-3-fill"></i><span>General Journal</span>
         </a>
         
       </li><!-- End Generall Journal Nav -->
+
+         <li class="nav-item">
+        <a class="nav-link"  href="ViewTAccount.aspx">
+          <i class="bi bi-align-top"></i><span>View T-Account</span>
+        </a>
+        
+      </li><!-- End T-Account Nav -->
+
+        <li class="nav-item">
+        <a class="nav-link"  href="ViewTrialBalance.aspx">
+          <i class="bi bi-bar-chart-steps"></i><span>View Trial Balance</span>
+        </a>
+        
+      </li><!-- End Trial Balance Nav -->
 
         <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#match-nav" data-bs-toggle="collapse" href="#">
@@ -37,7 +51,7 @@
         </ul>
       </li><!-- End Statment Nav -->
 
-    
+        
 
      
        

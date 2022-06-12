@@ -54,6 +54,11 @@ namespace gullycricket
                                         .Sum(x => x.Amount));
                 liabilitySumValue = Math.Abs(liabilitySumValue);
 
+                //if (assetSumValue == 0 || (liabilitySumValue + equitySumValue == 0))
+                //{
+                //    MessageBox.ErrorMessage("No Record found");
+                //}
+
                 AssetRepeater.DataSource = oSheet.oAssetsTransactions;
                 AssetRepeater.DataBind();
                 assetSum.InnerText = assetSumValue.ToString();
@@ -66,10 +71,7 @@ namespace gullycricket
                 companyName.InnerText = SessionService.GetCurrentUser().oUser.Name;
                 generatedDate.InnerText = selectedDateValue.ToString(ConfigurationManager.AppSettings["DateFormat"]);
 
-                if (assetSumValue == 0 || (liabilitySumValue + equitySumValue == 0))
-                {
-                    MessageBox.ErrorMessage("No Record found");
-                }
+
 
             }
             catch (Exception ex)

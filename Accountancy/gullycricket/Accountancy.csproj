@@ -2452,6 +2452,8 @@
     <Content Include="UserControl\MessageBox.ascx" />
     <Content Include="UserControl\Sidebar.ascx" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="ViewTAccount.aspx" />
+    <Content Include="ViewTrialBalance.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -2524,6 +2526,7 @@
     <Compile Include="ModalClasses\GeneralJournalInfo.cs" />
     <Compile Include="ModalClasses\IncomeSheetInfo.cs" />
     <Compile Include="ModalClasses\SheetInfo.cs" />
+    <Compile Include="ModalClasses\TAccountInfo.cs" />
     <Compile Include="ModalClasses\UserInfo.cs" />
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -2591,6 +2594,20 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTAccount.aspx.cs">
+      <DependentUpon>ViewTAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewTAccount.aspx.designer.cs">
+      <DependentUpon>ViewTAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTrialBalance.aspx.cs">
+      <DependentUpon>ViewTrialBalance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewTrialBalance.aspx.designer.cs">
+      <DependentUpon>ViewTrialBalance.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
