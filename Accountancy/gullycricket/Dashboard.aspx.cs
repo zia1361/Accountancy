@@ -19,6 +19,10 @@ namespace Accountancy
                 {
                     Response.Redirect("pages-error-404.html");
                 }
+                else
+                {
+                    Response.Redirect("GeneralJournal.aspx");
+                }
             }
             
         }
