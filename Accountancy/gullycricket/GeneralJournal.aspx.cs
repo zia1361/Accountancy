@@ -1,4 +1,5 @@
-﻿using gullycricket.ModalClasses;
+﻿using gullycricket.Backbone;
+using gullycricket.ModalClasses;
 using gullycricket.Model_Classes;
 using gullycricket.Services;
 using Newtonsoft.Json;
@@ -11,18 +12,14 @@ using System.Web.UI.WebControls;
 
 namespace Accountancy
 {
-    public partial class GeneralJournal : System.Web.UI.Page
+    public partial class GeneralJournal : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
 
-                var oUser = SessionService.GetCurrentUser().oUser;
-                if (oUser == null)
-                {
-                    Response.Redirect("pages-error-404.html");
-                }
+               
                 new GeneralJournalManagement().BindElementType(ElementListDebit);
                 new GeneralJournalManagement().BindElementType(ElementListCredit);
             }

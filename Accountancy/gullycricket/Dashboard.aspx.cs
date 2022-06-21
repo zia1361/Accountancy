@@ -1,4 +1,5 @@
-﻿using gullycricket.Model_Classes;
+﻿using gullycricket.Backbone;
+using gullycricket.Model_Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,21 +9,16 @@ using System.Web.UI.WebControls;
 
 namespace Accountancy
 {
-    public partial class Dashboard : System.Web.UI.Page
+    public partial class Dashboard : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                var oUser = SessionService.GetCurrentUser().oUser;
-                if(oUser == null)
-                {
-                    Response.Redirect("pages-error-404.html");
-                }
-                else
-                {
-                    Response.Redirect("GeneralJournal.aspx");
-                }
+
+
+                Response.Redirect("GeneralJournal.aspx");
+
             }
             
         }

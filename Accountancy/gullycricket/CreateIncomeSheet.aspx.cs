@@ -1,4 +1,5 @@
-﻿using gullycricket.Model_Classes;
+﻿using gullycricket.Backbone;
+using gullycricket.Model_Classes;
 using gullycricket.Services;
 using System;
 using System.Collections.Generic;
@@ -10,20 +11,11 @@ using static gullycricket.Model_Classes.Constants;
 
 namespace gullycricket
 {
-    public partial class CreateIncomeSheet : System.Web.UI.Page
+    public partial class CreateIncomeSheet : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-
-                var oUser = SessionService.GetCurrentUser().oUser;
-                if (oUser == null)
-                {
-                    Response.Redirect("pages-error-404.html");
-                }
-                
-            }
+            
             MessageBox.ClearMessage();
         }
 

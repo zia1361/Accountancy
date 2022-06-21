@@ -2461,6 +2461,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Backbone\BasePage.cs" />
     <Compile Include="Backbone\Constants.cs" />
     <Compile Include="Backbone\SessionService.cs" />
     <Compile Include="CreateBalanceSheet.aspx.cs">

@@ -1,4 +1,5 @@
-﻿using gullycricket.Model_Classes;
+﻿using gullycricket.Backbone;
+using gullycricket.Model_Classes;
 using gullycricket.Services;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace gullycricket
 {
-    public partial class ViewTrialBalance : System.Web.UI.Page
+    public partial class ViewTrialBalance : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,11 +18,7 @@ namespace gullycricket
             if (!IsPostBack)
             {
 
-                var oUser = SessionService.GetCurrentUser().oUser;
-                if (oUser == null)
-                {
-                    Response.Redirect("pages-error-404.html");
-                }
+                
                 BindData();
             }
             
